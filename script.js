@@ -73,3 +73,7 @@ taskInput.addEventListener("keypress", function (e) {
         addTask();
     }
 });
+function updateTaskCount() {
+    let count = document.querySelectorAll("#taskList li").length;
+    document.getElementById("taskCount").innerText = "Total Tasks: " + count;
+}
