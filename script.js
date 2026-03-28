@@ -23,9 +23,9 @@ function createTask(text, completed, priority) {
     li.innerHTML = `
         <span class="${completed ? "completed" : ""}">${text}</span>
         <div>
-            <button onclick="toggleTask(this)">✔</button>
-            <button onclick="editTask(this)">✏</button>
-            <button onclick="deleteTask(this)">❌</button>
+            <button onclick="toggleTask(this)" class="complete-btn">✔</button>
+            <button onclick="editTask(this)" class="edit-btn">✏</button>
+            <button onclick="deleteTask(this)" class="delete-btn">🗑</button>
         </div>
     `;
 
@@ -100,7 +100,7 @@ function clearAllTasks() {
     }
 }
 
-/* DARK MODE FIXED */
+/* DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 
