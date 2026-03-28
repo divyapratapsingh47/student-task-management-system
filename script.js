@@ -1,7 +1,7 @@
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 
-// Load tasks
+// Load
 window.onload = function () {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -12,7 +12,30 @@ window.onload = function () {
     updateTaskCount();
 };
 
-// Add Task
+// Open calendar
+function openCalendar() {
+    const dateInput = document.getElementById("dueDate");
+
+    if (dateInput.showPicker) {
+        dateInput.showPicker();
+    } else {
+        dateInput.click();
+    }
+}
+
+// Format date like 01-Aug-2025 (Fri)
+function formatDate(dateStr) {
+    if (!dateStr) return "";
+
+    const date = new Date(dateStr);
+
+    const options = { day: '2-digit', month: 'short', year: 'numeric' };
+    const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+
+    return `${date.toLocaleDateString('en-GB', options)} (${dayName})`;
+}
+
+// Add task
 function addTask() {
     let text = taskInput.value.trim();
     let priority = document.getElementById("priority").value;
@@ -27,12 +50,10 @@ function addTask() {
     document.getElementById("dueDate").value = "";
 }
 
-// Create Task
+// Create task
 function createTaskElement(text, completed, priority, dueDate) {
     let li = document.createElement("li");
     li.className = priority;
-
-    let dateText = dueDate ? `📅 ${dueDate}` : "";
 
     if (isOverdue(dueDate)) {
         li.classList.add("overdue");
@@ -41,7 +62,7 @@ function createTaskElement(text, completed, priority, dueDate) {
     li.innerHTML = `
         <span class="${completed ? "completed" : ""}">
             ${text}
-            <small>${dateText}</small>
+            <div class="date-text">${formatDate(dueDate)}</div>
         </span>
 
         <div>
@@ -55,42 +76,42 @@ function createTaskElement(text, completed, priority, dueDate) {
     updateTaskCount();
 }
 
-// Toggle Complete
+// Toggle
 function toggleTask(btn) {
     let span = btn.parentElement.previousElementSibling;
     span.classList.toggle("completed");
     updateStorage();
 }
 
-// Edit Task
+// Edit
 function editTask(btn) {
     let span = btn.parentElement.previousElementSibling;
     let newText = prompt("Edit task:", span.innerText);
 
-    if (newText) span.innerText = newText;
+    if (newText) span.childNodes[0].nodeValue = newText;
     updateStorage();
 }
 
-// Delete Task
+// Delete
 function deleteTask(btn) {
     btn.parentElement.parentElement.remove();
     updateTaskCount();
     updateStorage();
 }
 
-// Save Task
+// Save
 function saveTask(text, completed, priority, dueDate) {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.push({ text, completed, priority, dueDate });
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Update Storage
+// Update storage
 function updateStorage() {
     let tasks = [];
 
     document.querySelectorAll("#taskList li").forEach(li => {
-        let text = li.querySelector("span").innerText;
+        let text = li.querySelector("span").childNodes[0].nodeValue.trim();
         let completed = li.querySelector("span").classList.contains("completed");
         let priority = li.classList[0];
 
@@ -117,7 +138,7 @@ function filterTasks(type) {
     });
 }
 
-// Clear All
+// Clear all
 function clearAllTasks() {
     if (confirm("Delete all tasks?")) {
         localStorage.removeItem("tasks");
@@ -126,7 +147,7 @@ function clearAllTasks() {
     }
 }
 
-// 🌙 Dark Mode
+// Dark mode
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 
@@ -139,7 +160,7 @@ function toggleDarkMode() {
     }
 }
 
-// 🚨 Overdue Check
+// Overdue
 function isOverdue(date) {
     if (!date) return false;
 
