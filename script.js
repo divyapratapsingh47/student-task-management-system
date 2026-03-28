@@ -1,169 +1,110 @@
-const taskInput = document.getElementById("taskInput");
-const taskList = document.getElementById("taskList");
+let selectedDate = "";
 
-// Load
-window.onload = function () {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    tasks.forEach(task => {
-        createTaskElement(task.text, task.completed, task.priority, task.dueDate);
-    });
-
-    updateTaskCount();
-};
-
-// Open calendar
-function openCalendar() {
-    const dateInput = document.getElementById("dueDate");
-
-    if (dateInput.showPicker) {
-        dateInput.showPicker();
-    } else {
-        dateInput.click();
-    }
+function openDate() {
+    document.getElementById("dateInput").click();
 }
 
-// Format date like 01-Aug-2025 (Fri)
-function formatDate(dateStr) {
-    if (!dateStr) return "";
+document.getElementById("dateInput").addEventListener("change", function () {
+    selectedDate = this.value;
+});
 
-    const date = new Date(dateStr);
-
-    const options = { day: '2-digit', month: 'short', year: 'numeric' };
-    const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
-
-    return `${date.toLocaleDateString('en-GB', options)} (${dayName})`;
-}
-
-// Add task
+/* ADD TASK */
 function addTask() {
-    let text = taskInput.value.trim();
+    let input = document.getElementById("taskInput");
+    let text = input.value.trim();
     let priority = document.getElementById("priority").value;
-    let dueDate = document.getElementById("dueDate").value;
 
     if (text === "") return;
 
-    createTaskElement(text, false, priority, dueDate);
-    saveTask(text, false, priority, dueDate);
-
-    taskInput.value = "";
-    document.getElementById("dueDate").value = "";
-}
-
-// Create task
-function createTaskElement(text, completed, priority, dueDate) {
     let li = document.createElement("li");
     li.className = priority;
 
-    if (isOverdue(dueDate)) {
-        li.classList.add("overdue");
+    let today = new Date().toISOString().split("T")[0];
+
+    let dateText = "";
+    if (selectedDate) {
+        let d = new Date(selectedDate);
+        let day = d.toLocaleDateString("en-US", { weekday: "short" });
+        dateText = `<br><small>${d.toDateString()} (${day})</small>`;
+
+        if (selectedDate < today) {
+            li.classList.add("overdue");
+        }
     }
 
-    li.innerHTML = `
-        <span class="${completed ? "completed" : ""}">
-            ${text}
-            <div class="date-text">${formatDate(dueDate)}</div>
-        </span>
+    let span = document.createElement("span");
+    span.innerHTML = text + dateText;
 
-        <div>
-            <button class="complete-btn" title="Done" onclick="toggleTask(this)">✔</button>
-            <button class="edit-btn" title="Edit" onclick="editTask(this)">✏</button>
-            <button class="delete-btn" title="Delete" onclick="deleteTask(this)">🗑</button>
-        </div>
-    `;
+    /* BUTTONS */
+    let done = document.createElement("button");
+    done.innerText = "✔";
+    done.className = "done-btn";
+    done.onclick = () => span.classList.toggle("completed");
 
-    taskList.appendChild(li);
-    updateTaskCount();
+    let edit = document.createElement("button");
+    edit.innerText = "✏";
+    edit.className = "edit-btn";
+    edit.onclick = () => {
+        let newText = prompt("Edit task:", span.innerText);
+        if (newText) span.innerText = newText;
+    };
+
+    let del = document.createElement("button");
+    del.innerText = "🗑";
+    del.className = "delete-btn";
+    del.onclick = () => li.remove();
+
+    let actions = document.createElement("div");
+    actions.className = "task-actions";
+
+    actions.append(done, edit, del);
+
+    li.append(span, actions);
+
+    document.getElementById("taskList").appendChild(li);
+
+    input.value = "";
+    selectedDate = "";
+
+    updateCount();
 }
 
-// Toggle
-function toggleTask(btn) {
-    let span = btn.parentElement.previousElementSibling;
-    span.classList.toggle("completed");
-    updateStorage();
+/* COUNT */
+function updateCount() {
+    let count = document.querySelectorAll("#taskList li").length;
+    document.getElementById("taskCount").innerText = "Total Tasks: " + count;
 }
 
-// Edit
-function editTask(btn) {
-    let span = btn.parentElement.previousElementSibling;
-    let newText = prompt("Edit task:", span.innerText);
-
-    if (newText) span.childNodes[0].nodeValue = newText;
-    updateStorage();
-}
-
-// Delete
-function deleteTask(btn) {
-    btn.parentElement.parentElement.remove();
-    updateTaskCount();
-    updateStorage();
-}
-
-// Save
-function saveTask(text, completed, priority, dueDate) {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.push({ text, completed, priority, dueDate });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// Update storage
-function updateStorage() {
-    let tasks = [];
-
-    document.querySelectorAll("#taskList li").forEach(li => {
-        let text = li.querySelector("span").childNodes[0].nodeValue.trim();
-        let completed = li.querySelector("span").classList.contains("completed");
-        let priority = li.classList[0];
-
-        tasks.push({ text, completed, priority });
-    });
-
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// Count
-function updateTaskCount() {
-    document.getElementById("taskCount").innerText =
-        "Total Tasks: " + document.querySelectorAll("#taskList li").length;
-}
-
-// Filter
+/* FILTER */
 function filterTasks(type) {
-    document.querySelectorAll("#taskList li").forEach(li => {
-        let completed = li.querySelector("span").classList.contains("completed");
+    let tasks = document.querySelectorAll("#taskList li");
 
-        if (type === "all") li.style.display = "flex";
-        else if (type === "completed") li.style.display = completed ? "flex" : "none";
-        else li.style.display = !completed ? "flex" : "none";
+    tasks.forEach(task => {
+        let done = task.querySelector("span").classList.contains("completed");
+
+        if (type === "all") task.style.display = "flex";
+        else if (type === "completed") task.style.display = done ? "flex" : "none";
+        else task.style.display = !done ? "flex" : "none";
     });
 }
 
-// Clear all
+/* CLEAR */
 function clearAllTasks() {
     if (confirm("Delete all tasks?")) {
-        localStorage.removeItem("tasks");
-        taskList.innerHTML = "";
-        updateTaskCount();
+        document.getElementById("taskList").innerHTML = "";
+        updateCount();
     }
 }
 
-// Dark mode
+/* DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 
-    let btn = document.querySelector(".dark-btn");
+    let btn = document.getElementById("modeBtn");
 
     if (document.body.classList.contains("dark")) {
-        btn.innerText = "☀ Light Mode";
+        btn.innerText = "☀️ Light Mode";
     } else {
         btn.innerText = "🌙 Dark Mode";
     }
-}
-
-// Overdue
-function isOverdue(date) {
-    if (!date) return false;
-
-    let today = new Date().toISOString().split("T")[0];
-    return date < today;
 }

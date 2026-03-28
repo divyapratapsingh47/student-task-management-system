@@ -12,8 +12,10 @@
 <div class="container">
     <h1>🚀 Student Task Manager</h1>
 
-    <button onclick="toggleDarkMode()" class="dark-btn">🌙 Dark Mode</button>
+    <!-- Dark Mode -->
+    <button onclick="toggleDarkMode()" id="modeBtn" class="dark-btn">🌙 Dark Mode</button>
 
+    <!-- Input Section -->
     <div class="input-section">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
@@ -23,19 +25,20 @@
             <option value="high">High</option>
         </select>
 
-        <!-- Hidden date input -->
-        <input type="date" id="dueDate" class="hidden-date">
-
         <!-- Calendar Icon -->
-        <button class="icon-btn" onclick="openCalendar()" title="Select date">
-            📅
-        </button>
+        <div class="tooltip">
+            <button onclick="openDate()" class="calendar-btn">📅</button>
+            <span class="tooltiptext">Select Deadline</span>
+        </div>
+
+        <input type="date" id="dateInput" style="display:none">
 
         <button onclick="addTask()">Add</button>
     </div>
 
     <p id="taskCount">Total Tasks: 0</p>
 
+    <!-- Filters -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>

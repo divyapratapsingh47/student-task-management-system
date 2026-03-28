@@ -1,4 +1,5 @@
 body {
+    margin: 0;
     font-family: Arial;
     background: linear-gradient(135deg, purple, blue);
     display: flex;
@@ -7,110 +8,151 @@ body {
     height: 100vh;
 }
 
-.container {
-    background: #eee;
-    padding: 20px;
-    border-radius: 12px;
-    width: 330px;
-}
-
-.dark {
-    background: #111;
+/* DARK MODE */
+body.dark {
+    background: #121212;
     color: white;
 }
 
-.dark .container {
+/* CONTAINER */
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 320px;
+    text-align: center;
+}
+
+body.dark .container {
     background: #1e1e1e;
 }
 
-.input-section {
-    display: flex;
-    gap: 6px;
-    margin: 10px 0;
+/* DARK BUTTON */
+.dark-btn {
+    margin-bottom: 10px;
 }
 
-input, select {
+/* INPUT SECTION */
+.input-section {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.input-section input {
+    flex: 1;
     padding: 6px;
 }
 
-/* Hide date input */
-.hidden-date {
-    position: absolute;
-    opacity: 0;
+.input-section select,
+.input-section button {
+    padding: 6px;
 }
 
-/* Calendar button */
-.icon-btn {
+/* CALENDAR BUTTON */
+.calendar-btn {
     background: #444;
     color: white;
-    border: none;
-    padding: 6px 8px;
     border-radius: 6px;
-    cursor: pointer;
 }
 
-.icon-btn:hover {
-    background: #666;
+/* FILTER */
+.filters button {
+    margin: 3px;
 }
 
+/* CLEAR BUTTON */
+.clear-btn {
+    background: red;
+    color: white;
+    padding: 6px 12px;
+    margin-top: 8px;
+    border-radius: 6px;
+}
+
+/* TASK LIST */
 li {
+    list-style: none;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0;
+    margin: 8px 0;
     padding: 10px;
     border-radius: 8px;
 }
 
-/* Priority */
-.high { background: #f8d7da; border-left: 5px solid red; }
-.medium { background: #fff3cd; border-left: 5px solid orange; }
-.low { background: #d4edda; border-left: 5px solid green; }
-
-/* Overdue */
-.overdue {
-    border: 2px solid red;
+/* PRIORITY COLORS */
+.high {
+    background: #ffcccc;
+    border-left: 5px solid red;
 }
 
-/* Buttons */
-.complete-btn {
+.medium {
+    background: #fff2cc;
+    border-left: 5px solid orange;
+}
+
+.low {
+    background: #ccffcc;
+    border-left: 5px solid green;
+}
+
+/* BUTTON GROUP */
+.task-actions {
+    display: flex;
+    gap: 6px;
+}
+
+/* BUTTONS */
+.done-btn {
     background: blue;
     color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 6px;
+    width: 32px;
+    height: 32px;
 }
 
 .edit-btn {
     background: orange;
-    border: none;
-    padding: 5px;
-    border-radius: 6px;
+    color: white;
+    width: 32px;
+    height: 32px;
     transform: rotate(-20deg);
 }
 
 .delete-btn {
     background: red;
     color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 6px;
+    width: 32px;
+    height: 32px;
 }
 
+/* COMPLETED */
 .completed {
     text-decoration: line-through;
+    opacity: 0.6;
 }
 
-/* Date style */
-.date-text {
-    font-size: 12px;
-    color: gray;
+/* TOOLTIP */
+.tooltip {
+    position: relative;
 }
 
-.dark .date-text {
-    color: #ccc;
+.tooltiptext {
+    visibility: hidden;
+    background: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    top: -30px;
+    left: -10px;
 }
 
-.clear-btn {
-    margin: 10px 0;
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
+/* OVERDUE */
+.overdue {
+    border: 2px solid red;
 }
