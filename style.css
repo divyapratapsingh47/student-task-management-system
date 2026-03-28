@@ -39,7 +39,7 @@ button {
     border-radius: 6px;
 }
 
-/* 🔥 Tilted Pencil */
+/* Tilted pencil */
 .edit-btn span {
     display: inline-block;
     transform: rotate(-25deg);
@@ -53,7 +53,7 @@ button {
     border-radius: 6px;
 }
 
-/* Task Box */
+/* Task box */
 li {
     list-style: none;
     margin: 10px 0;
@@ -64,7 +64,7 @@ li {
     animation: fadeIn 0.3s ease;
 }
 
-/* Priority Colors */
+/* Priority colors */
 .high { background: #f8d7da; border-left: 5px solid red; }
 .medium { background: #fff3cd; border-left: 5px solid orange; }
 .low { background: #d4edda; border-left: 5px solid green; }
@@ -75,12 +75,11 @@ li {
     opacity: 0.6;
 }
 
-/* Filters spacing */
+/* Spacing fixes */
 .filters {
     margin-bottom: 10px;
 }
 
-/* Clear button spacing */
 .clear-btn {
     background: red;
     color: white;
@@ -89,7 +88,7 @@ li {
     margin-top: 10px;
 }
 
-/* Dark Mode */
+/* DARK MODE */
 .dark {
     background: #121212;
     color: white;
@@ -105,18 +104,42 @@ li {
     color: white;
 }
 
-/* 🔥 Fix task text visibility */
 .dark li span {
     color: white;
 }
 
-/* Better dark colors */
 .dark .high { background: #5c1a1a; }
 .dark .medium { background: #5c4a1a; }
 .dark .low { background: #1a5c2e; }
 
-/* Animation */
+/* ANIMATION */
 @keyframes fadeIn {
     from {opacity: 0; transform: translateY(10px);}
     to {opacity: 1; transform: translateY(0);}
+}
+
+/* 🔥 BONUS TOOLTIP STYLE */
+button[title] {
+    position: relative;
+}
+
+button[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+    transition: 0.2s;
+}
+
+button:hover::after {
+    opacity: 1;
 }
