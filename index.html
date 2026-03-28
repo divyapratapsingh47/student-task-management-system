@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Task Manager</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Task Manager</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="container">
+
     <h1>🚀 Student Task Manager</h1>
 
-    <!-- Dark Mode -->
-    <button onclick="toggleDarkMode()" id="modeBtn" class="dark-btn">🌙 Dark Mode</button>
+    <!-- DARK MODE -->
+    <button onclick="toggleDarkMode()" id="modeBtn">🌙 Dark Mode</button>
 
-    <!-- Input Section -->
-    <div class="input-section">
+    <!-- INPUT ROW -->
+    <div class="input-row">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
         <select id="priority">
@@ -25,12 +26,13 @@
             <option value="high">High</option>
         </select>
 
-        <!-- Calendar Icon -->
+        <!-- CALENDAR BUTTON -->
         <div class="tooltip">
-            <button onclick="openDate()" class="calendar-btn">📅</button>
-            <span class="tooltiptext">Select Deadline</span>
+            <button class="icon-btn" onclick="openDate()">📅</button>
+            <span class="tooltip-text">Select Deadline</span>
         </div>
 
+        <!-- HIDDEN DATE INPUT -->
         <input type="date" id="dateInput">
 
         <button onclick="addTask()">Add</button>
@@ -38,15 +40,17 @@
 
     <p id="taskCount">Total Tasks: 0</p>
 
+    <!-- FILTERS -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button onclick="clearAllTasks()" class="clear-btn">🗑 Clear All</button>
+    <button class="clear-btn" onclick="clearAllTasks()">🗑 Clear All</button>
 
     <ul id="taskList"></ul>
+
 </div>
 
 <script src="script.js"></script>

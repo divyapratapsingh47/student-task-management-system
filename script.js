@@ -1,118 +1,127 @@
-let selectedDate = "";
+let tasks = [];
 
-/* CALENDAR FIX */
-function openDate() {
-    const input = document.getElementById("dateInput");
-    input.style.display = "block";
-    input.focus();
-    input.click();
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
 
-    setTimeout(() => {
-        input.style.display = "none";
-    }, 200);
+    const btn = document.getElementById("modeBtn");
+
+    if (document.body.classList.contains("dark")) {
+        btn.innerText = "☀ Light Mode";
+    } else {
+        btn.innerText = "🌙 Dark Mode";
+    }
 }
 
-document.getElementById("dateInput").addEventListener("change", function () {
-    selectedDate = this.value;
-});
+function openDate() {
+    const input = document.getElementById("dateInput");
 
-/* ADD TASK */
+    if (input.showPicker) {
+        input.showPicker(); // modern browsers
+    } else {
+        input.focus();
+        input.click();
+    }
+}
+
 function addTask() {
-    let input = document.getElementById("taskInput");
-    let text = input.value.trim();
-    let priority = document.getElementById("priority").value;
+    const text = document.getElementById("taskInput").value;
+    const priority = document.getElementById("priority").value;
+    const date = document.getElementById("dateInput").value;
 
     if (text === "") return;
 
-    let li = document.createElement("li");
-    li.className = priority;
+    tasks.push({ text, priority, date, completed: false });
+    renderTasks();
 
-    let today = new Date().toISOString().split("T")[0];
+    document.getElementById("taskInput").value = "";
+}
 
-    let dateText = "";
-    if (selectedDate) {
-        let d = new Date(selectedDate);
-        let day = d.toLocaleDateString("en-US", { weekday: "short" });
-        dateText = `<br><small>${d.toDateString()} (${day})</small>`;
+function renderTasks() {
+    const list = document.getElementById("taskList");
+    list.innerHTML = "";
 
-        if (selectedDate < today) {
-            li.classList.add("overdue");
+    tasks.forEach((task, index) => {
+        let li = document.createElement("li");
+        li.classList.add(task.priority);
+
+        if (task.completed) li.classList.add("completed");
+
+        let dateText = "";
+        if (task.date) {
+            let d = new Date(task.date);
+            let day = d.toLocaleDateString('en-US', { weekday: 'short' });
+            dateText = `<br><small>${task.date} (${day})</small>`;
         }
-    }
 
-    let span = document.createElement("span");
-    span.innerHTML = text + dateText;
+        li.innerHTML = `
+            <span>${task.text}${dateText}</span>
 
-    /* BUTTONS */
-    let done = document.createElement("button");
-    done.innerText = "✔";
-    done.className = "done-btn";
-    done.onclick = () => span.classList.toggle("completed");
+            <div class="actions">
+                <div class="tooltip">
+                    <button class="icon-btn done" onclick="toggleTask(${index})">✔</button>
+                    <span class="tooltip-text">Done</span>
+                </div>
 
-    let edit = document.createElement("button");
-    edit.innerText = "✏";
-    edit.className = "edit-btn";
-    edit.onclick = () => {
-        let newText = prompt("Edit task:", text);
-        if (newText) span.innerHTML = newText;
-    };
+                <div class="tooltip">
+                    <button class="icon-btn edit" onclick="editTask(${index})">✏</button>
+                    <span class="tooltip-text">Edit</span>
+                </div>
 
-    let del = document.createElement("button");
-    del.innerText = "🗑";
-    del.className = "delete-btn";
-    del.onclick = () => li.remove();
+                <div class="tooltip">
+                    <button class="icon-btn delete" onclick="deleteTask(${index})">🗑</button>
+                    <span class="tooltip-text">Delete</span>
+                </div>
+            </div>
+        `;
 
-    let actions = document.createElement("div");
-    actions.className = "task-actions";
-
-    actions.append(done, edit, del);
-
-    li.append(span, actions);
-
-    document.getElementById("taskList").appendChild(li);
-
-    input.value = "";
-    selectedDate = "";
+        list.appendChild(li);
+    });
 
     updateCount();
 }
 
-/* COUNT */
-function updateCount() {
-    let count = document.querySelectorAll("#taskList li").length;
-    document.getElementById("taskCount").innerText = "Total Tasks: " + count;
+function toggleTask(i) {
+    tasks[i].completed = !tasks[i].completed;
+    renderTasks();
 }
 
-/* FILTER */
+function editTask(i) {
+    let newText = prompt("Edit task:", tasks[i].text);
+    if (newText) {
+        tasks[i].text = newText;
+        renderTasks();
+    }
+}
+
+function deleteTask(i) {
+    tasks.splice(i, 1);
+    renderTasks();
+}
+
+function clearAllTasks() {
+    if (confirm("Delete all tasks?")) {
+        tasks = [];
+        renderTasks();
+    }
+}
+
 function filterTasks(type) {
-    let tasks = document.querySelectorAll("#taskList li");
+    const items = document.querySelectorAll("#taskList li");
 
-    tasks.forEach(task => {
-        let done = task.querySelector("span").classList.contains("completed");
+    items.forEach((item, index) => {
+        let task = tasks[index];
 
-        if (type === "all") task.style.display = "flex";
-        else if (type === "completed") task.style.display = done ? "flex" : "none";
-        else task.style.display = !done ? "flex" : "none";
+        if (type === "all") {
+            item.style.display = "flex";
+        } else if (type === "completed") {
+            item.style.display = task.completed ? "flex" : "none";
+        } else {
+            item.style.display = !task.completed ? "flex" : "none";
+        }
     });
 }
 
-/* CLEAR */
-function clearAllTasks() {
-    if (confirm("Delete all tasks?")) {
-        document.getElementById("taskList").innerHTML = "";
-        updateCount();
-    }
-}
-
-/* DARK MODE FIX */
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-
-    let btn = document.getElementById("modeBtn");
-
-    if (document.body.classList.contains("dark")) {
-        btn.innerText = "☀️ Light Mode";
-    } else {
-        btn.innerText = "🌙 Dark Mode";
-    }
+function updateCount() {
+    document.getElementById("taskCount").innerText =
+        "Total Tasks: " + tasks.length;
 }

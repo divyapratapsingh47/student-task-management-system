@@ -1,182 +1,128 @@
 body {
-    margin: 0;
     font-family: Arial;
-    background: linear-gradient(135deg, purple, blue);
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
+    background: linear-gradient(135deg, purple, blue);
 }
 
-/* DARK MODE */
-body.dark {
-    background: #121212;
-    color: white;
-}
-
-/* CONTAINER */
 .container {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    width: 340px;
+    background: #eee;
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
     text-align: center;
 }
 
-body.dark .container {
-    background: #1e1e1e;
-}
-
-/* DARK BUTTON */
-.dark-btn {
+h1 {
     margin-bottom: 10px;
 }
 
-/* INPUT SECTION FIXED */
-.input-section {
+/* INPUT ROW */
+.input-row {
     display: flex;
-    gap: 5px;
-    margin-top: 10px;
-    width: 100%;
-}
-
-.input-section input {
-    flex: 1;
-    min-width: 0;
-    padding: 6px;
-}
-
-.input-section select {
-    width: 70px;
-    padding: 6px;
-}
-
-.input-section button {
-    padding: 6px;
-    white-space: nowrap;
-}
-
-/* CALENDAR BUTTON */
-.calendar-btn {
-    background: #444;
-    color: white;
-    border-radius: 6px;
-}
-
-/* HIDE DATE INPUT */
-#dateInput {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* FILTER */
-.filters button {
-    margin: 3px;
-}
-
-/* CLEAR BUTTON */
-.clear-btn {
-    background: red;
-    color: white;
-    padding: 6px 12px;
-    margin-top: 8px;
-    border-radius: 6px;
-}
-
-/* TASK ROW */
-li {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-/* PRIORITY COLORS */
-.high {
-    background: #ffcccc;
-    border-left: 5px solid red;
-}
-
-.medium {
-    background: #fff2cc;
-    border-left: 5px solid orange;
-}
-
-.low {
-    background: #ccffcc;
-    border-left: 5px solid green;
-}
-
-/* BUTTON GROUP */
-.task-actions {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* BUTTONS FIXED ALIGNMENT */
-.done-btn,
-.edit-btn,
-.delete-btn {
-    width: 34px;
-    height: 34px;
-    display: flex;
-    align-items: center;
+    gap: 8px;
     justify-content: center;
-    border-radius: 6px;
-    border: none;
+    margin: 10px 0;
+}
+
+input, select {
+    padding: 6px;
+}
+
+/* BUTTONS */
+button {
+    padding: 6px 10px;
     cursor: pointer;
 }
 
-.done-btn {
-    background: blue;
-    color: white;
-}
-
-.edit-btn {
-    background: orange;
-    color: white;
-    transform: rotate(-15deg);
-}
-
-.delete-btn {
+.clear-btn {
     background: red;
     color: white;
+    border: none;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 6px;
 }
 
-/* COMPLETED */
-.completed {
-    text-decoration: line-through;
-    opacity: 0.6;
+/* TASK LIST */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    background: #ddd;
 }
 
-/* TOOLTIP FIXED */
+/* PRIORITY COLORS */
+.high { background: #f8c6c6; border-left: 5px solid red; }
+.medium { background: #f5e6b3; border-left: 5px solid orange; }
+.low { background: #cdeccd; border-left: 5px solid green; }
+
+/* BUTTON GROUP */
+.actions {
+    display: flex;
+    gap: 5px;
+}
+
+/* ICON BUTTONS */
+.icon-btn {
+    border: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+/* COLORS */
+.done { background: blue; color: white; }
+.edit { background: orange; color: white; transform: rotate(-15deg); }
+.delete { background: red; color: white; }
+
+/* TOOLTIP */
 .tooltip {
     position: relative;
 }
 
-.tooltiptext {
-    visibility: hidden;
-    background: black;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
+.tooltip-text {
     position: absolute;
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    white-space: nowrap;
+    background: black;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    display: none;
 }
 
-.tooltip:hover .tooltiptext {
-    visibility: visible;
+.tooltip:hover .tooltip-text {
+    display: block;
 }
 
-/* OVERDUE */
-.overdue {
-    border: 2px solid red;
+/* HIDE DATE INPUT BUT KEEP FUNCTIONAL */
+#dateInput {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+/* DARK MODE */
+.dark {
+    background: #111;
+    color: white;
+}
+
+.dark .container {
+    background: #222;
+}
+
+.completed span {
+    text-decoration: line-through;
+    color: gray;
 }
