@@ -1,96 +1,21 @@
 body {
     font-family: Arial;
-    margin: 0;
-    background: linear-gradient(to right, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, purple, blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .container {
-    width: 350px;
-    margin: 50px auto;
     background: #eee;
     padding: 20px;
-    border-radius: 10px;
-    text-align: center;
+    border-radius: 12px;
+    width: 320px;
 }
 
-input, select {
-    padding: 8px;
-    margin: 5px;
-}
-
-button {
-    cursor: pointer;
-}
-
-/* Buttons */
-.complete-btn {
-    background: blue;
-    color: white;
-    border: none;
-    padding: 6px 8px;
-    border-radius: 6px;
-}
-
-.edit-btn {
-    background: #ff7a00;
-    color: white;
-    border: none;
-    padding: 6px 8px;
-    border-radius: 6px;
-}
-
-/* Tilted pencil */
-.edit-btn span {
-    display: inline-block;
-    transform: rotate(-25deg);
-}
-
-.delete-btn {
-    background: red;
-    color: white;
-    border: none;
-    padding: 6px 8px;
-    border-radius: 6px;
-}
-
-/* Task box */
-li {
-    list-style: none;
-    margin: 10px 0;
-    padding: 10px;
-    display: flex;
-    justify-content: space-between;
-    border-radius: 8px;
-    animation: fadeIn 0.3s ease;
-}
-
-/* Priority colors */
-.high { background: #f8d7da; border-left: 5px solid red; }
-.medium { background: #fff3cd; border-left: 5px solid orange; }
-.low { background: #d4edda; border-left: 5px solid green; }
-
-/* Completed */
-.completed {
-    text-decoration: line-through;
-    opacity: 0.6;
-}
-
-/* Spacing fixes */
-.filters {
-    margin-bottom: 10px;
-}
-
-.clear-btn {
-    background: red;
-    color: white;
-    padding: 8px;
-    border-radius: 6px;
-    margin-top: 10px;
-}
-
-/* DARK MODE */
 .dark {
-    background: #121212;
+    background: #111;
     color: white;
 }
 
@@ -98,48 +23,90 @@ li {
     background: #1e1e1e;
 }
 
-.dark input,
-.dark select {
-    background: #333;
+.input-section {
+    display: flex;
+    gap: 5px;
+    margin: 10px 0;
+}
+
+input, select {
+    padding: 6px;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* Tasks */
+li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 8px;
+    animation: fadeIn 0.3s ease;
+}
+
+/* Priority Colors */
+.high { background: #f8d7da; border-left: 5px solid red; }
+.medium { background: #fff3cd; border-left: 5px solid orange; }
+.low { background: #d4edda; border-left: 5px solid green; }
+
+/* Overdue */
+.overdue {
+    border: 2px solid red !important;
+}
+
+/* Buttons */
+.complete-btn {
+    background: blue;
     color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 6px;
 }
 
-.dark li span {
+.edit-btn {
+    background: orange;
+    border: none;
+    padding: 5px;
+    border-radius: 6px;
+    transform: rotate(-20deg); /* ✨ tilted pencil */
+}
+
+.delete-btn {
+    background: red;
     color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 6px;
 }
 
-.dark .high { background: #5c1a1a; }
-.dark .medium { background: #5c4a1a; }
-.dark .low { background: #1a5c2e; }
-
-/* ANIMATION */
-@keyframes fadeIn {
-    from {opacity: 0; transform: translateY(10px);}
-    to {opacity: 1; transform: translateY(0);}
+/* Completed */
+.completed {
+    text-decoration: line-through;
+    color: gray;
 }
 
-/* 🔥 BONUS TOOLTIP STYLE */
-button[title] {
-    position: relative;
-}
-
-button[title]::after {
-    content: attr(title);
-    position: absolute;
-    bottom: 120%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: black;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 5px;
+/* Date text */
+small {
+    display: block;
     font-size: 12px;
-    opacity: 0;
-    pointer-events: none;
-    white-space: nowrap;
-    transition: 0.2s;
+    color: gray;
 }
 
-button:hover::after {
-    opacity: 1;
+.dark small {
+    color: #ccc;
+}
+
+/* Clear button spacing fix */
+.clear-btn {
+    margin: 10px 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
