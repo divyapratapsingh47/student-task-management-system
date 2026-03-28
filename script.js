@@ -1,50 +1,60 @@
 const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
+const prioritySelect = document.getElementById("priority");
 
-// Load tasks
-window.onload = function () {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(task => createTaskElement(task.text, task.completed, task.priority));
-    updateTaskCount();
-};
+window.onload = loadTasks;
 
 function addTask() {
-    let taskText = taskInput.value.trim();
-    let priority = document.getElementById("priority").value;
+    let text = taskInput.value.trim();
+    let priority = prioritySelect.value;
 
-    if (taskText === "") return;
+    if (text === "") return;
 
-    createTaskElement(taskText, false, priority);
-    saveTask(taskText, false, priority);
+    createTask(text, false, priority);
+    saveTask(text, false, priority);
 
     taskInput.value = "";
 }
 
-function createTaskElement(text, completed, priority) {
+function createTask(text, completed, priority) {
     let li = document.createElement("li");
+    li.classList.add(priority);
 
     li.innerHTML = `
-        <span class="${completed ? "completed" : ""} ${priority}">${text}</span>
+        <span class="${completed ? "completed" : ""}">${text}</span>
         <div>
             <button onclick="toggleTask(this)">✔</button>
+            <button onclick="editTask(this)">✏</button>
             <button onclick="deleteTask(this)">❌</button>
         </div>
     `;
 
     taskList.appendChild(li);
-    updateTaskCount();
+    updateCount();
 }
 
-function toggleTask(button) {
-    let span = button.parentElement.previousElementSibling;
+function toggleTask(btn) {
+    let span = btn.parentElement.previousElementSibling;
     span.classList.toggle("completed");
     updateStorage();
 }
 
-function deleteTask(button) {
-    button.parentElement.parentElement.remove();
-    updateTaskCount();
+function deleteTask(btn) {
+    btn.parentElement.parentElement.remove();
     updateStorage();
+    updateCount();
+}
+
+function editTask(btn) {
+    let span = btn.parentElement.previousElementSibling;
+    let newText = prompt("Edit task:", span.innerText);
+    if (newText) span.innerText = newText;
+    updateStorage();
+}
+
+function updateCount() {
+    let count = document.querySelectorAll("#taskList li").length;
+    document.getElementById("taskCount").innerText = "Total Tasks: " + count;
 }
 
 function saveTask(text, completed, priority) {
@@ -53,44 +63,32 @@ function saveTask(text, completed, priority) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+function loadTasks() {
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    tasks.forEach(t => createTask(t.text, t.completed, t.priority));
+}
+
 function updateStorage() {
     let tasks = [];
 
     document.querySelectorAll("#taskList li").forEach(li => {
-        let span = li.querySelector("span");
+        let text = li.querySelector("span").innerText;
+        let completed = li.querySelector("span").classList.contains("completed");
+        let priority = li.classList[0];
 
-        tasks.push({
-            text: span.innerText,
-            completed: span.classList.contains("completed"),
-            priority: span.classList.contains("high")
-                ? "high"
-                : span.classList.contains("medium")
-                ? "medium"
-                : "low"
-        });
+        tasks.push({ text, completed, priority });
     });
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-function updateTaskCount() {
-    let count = document.querySelectorAll("#taskList li").length;
-    document.getElementById("taskCount").innerText = "Total Tasks: " + count;
-}
-
 function filterTasks(type) {
-    let tasks = document.querySelectorAll("#taskList li");
+    document.querySelectorAll("#taskList li").forEach(li => {
+        let completed = li.querySelector("span").classList.contains("completed");
 
-    tasks.forEach(task => {
-        let isCompleted = task.querySelector("span").classList.contains("completed");
-
-        if (type === "all") {
-            task.style.display = "flex";
-        } else if (type === "completed") {
-            task.style.display = isCompleted ? "flex" : "none";
-        } else {
-            task.style.display = !isCompleted ? "flex" : "none";
-        }
+        if (type === "all") li.style.display = "flex";
+        else if (type === "completed") li.style.display = completed ? "flex" : "none";
+        else li.style.display = !completed ? "flex" : "none";
     });
 }
 
@@ -98,6 +96,10 @@ function clearAllTasks() {
     if (confirm("Delete all tasks?")) {
         localStorage.removeItem("tasks");
         taskList.innerHTML = "";
-        updateTaskCount();
+        updateCount();
     }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
 }

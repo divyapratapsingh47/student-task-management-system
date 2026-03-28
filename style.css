@@ -1,83 +1,82 @@
 body {
-  font-family: Arial;
-  background: linear-gradient(135deg, #6a85b6, #b06ab3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+    font-family: Arial;
+    background: linear-gradient(to right, #5f2c82, #49a09d);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    transition: 0.3s;
 }
 
 .container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 350px;
-  text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    animation: fadeIn 0.5s ease;
 }
 
-.input-section {
-  display: flex;
-  gap: 5px;
-  margin-bottom: 10px;
+@keyframes fadeIn {
+    from {opacity: 0; transform: scale(0.9);}
+    to {opacity: 1; transform: scale(1);}
 }
 
 input, select {
-  padding: 5px;
-  flex: 1;
+    padding: 8px;
+    margin: 5px;
+    width: 60%;
 }
 
 button {
-  padding: 6px 10px;
-  border: none;
-  border-radius: 5px;
-  background: #333;
-  color: white;
-  cursor: pointer;
+    padding: 8px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-button:hover {
-  opacity: 0.8;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.completed {
-  text-decoration: line-through;
-  color: gray;
-}
-
-/* PRIORITY COLORS */
-.low {
-  color: green;
-}
-
-.medium {
-  color: orange;
-}
-
-.high {
-  color: red;
-  font-weight: bold;
-}
-
-/* FILTER BUTTONS */
-.filters {
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
+.dark-btn {
+    background: black;
+    color: white;
 }
 
 .clear-btn {
-  margin-top: 10px;
-  background: red;
+    background: red;
+    color: white;
+}
+
+.filters button {
+    background: #444;
+    color: white;
+}
+
+li {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {opacity: 0; transform: translateX(-20px);}
+    to {opacity: 1; transform: translateX(0);}
+}
+
+.low { background: #d4edda; }
+.medium { background: #fff3cd; }
+.high { background: #f8d7da; }
+
+.completed {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+li button {
+    margin-left: 5px;
+    background: blue;
+    color: white;
 }

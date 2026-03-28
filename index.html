@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Task Manager</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Task Manager</title>
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h1>📚 Student Task Manager</h1>
+    <h1>🚀 Student Task Manager</h1>
+
+    <!-- Dark Mode Toggle -->
+    <button onclick="toggleDarkMode()" class="dark-btn">🌙 Toggle Mode</button>
 
     <div class="input-section">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
+        <!-- Priority -->
         <select id="priority">
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -25,18 +30,18 @@
 
     <p id="taskCount">Total Tasks: 0</p>
 
+    <!-- Filters -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button onclick="clearAllTasks()" class="clear-btn">Clear All</button>
+    <button onclick="clearAllTasks()" class="clear-btn">🗑 Clear All</button>
 
     <ul id="taskList"></ul>
 </div>
 
 <script src="script.js"></script>
-
 </body>
 </html>
