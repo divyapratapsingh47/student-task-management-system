@@ -80,3 +80,25 @@ function updateTaskCount() {
     let count = document.querySelectorAll("#taskList li").length;
     document.getElementById("taskCount").innerText = "Total Tasks: " + count;
 }
+function filterTasks(type) {
+    let tasks = document.querySelectorAll("#taskList li");
+
+    tasks.forEach(task => {
+        let isCompleted = task.querySelector("span").classList.contains("completed");
+
+        if (type === "all") {
+            task.style.display = "flex";
+        } else if (type === "completed") {
+            task.style.display = isCompleted ? "flex" : "none";
+        } else if (type === "pending") {
+            task.style.display = !isCompleted ? "flex" : "none";
+        }
+    });
+}
+function clearAllTasks() {
+    if (confirm("Delete all tasks?")) {
+        localStorage.removeItem("tasks");
+        document.getElementById("taskList").innerHTML = "";
+        updateTaskCount();
+    }
+}
