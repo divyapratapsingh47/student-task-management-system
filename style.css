@@ -75,6 +75,20 @@ li {
     opacity: 0.6;
 }
 
+/* Filters spacing */
+.filters {
+    margin-bottom: 10px;
+}
+
+/* Clear button spacing */
+.clear-btn {
+    background: red;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
 /* Dark Mode */
 .dark {
     background: #121212;
@@ -91,13 +105,15 @@ li {
     color: white;
 }
 
-/* Clear button */
-.clear-btn {
-    background: red;
+/* 🔥 Fix task text visibility */
+.dark li span {
     color: white;
-    padding: 8px;
-    border-radius: 6px;
 }
+
+/* Better dark colors */
+.dark .high { background: #5c1a1a; }
+.dark .medium { background: #5c4a1a; }
+.dark .low { background: #1a5c2e; }
 
 /* Animation */
 @keyframes fadeIn {
