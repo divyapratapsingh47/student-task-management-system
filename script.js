@@ -5,6 +5,7 @@ const taskList = document.getElementById("taskList");
 window.onload = function () {
     let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
     tasks.forEach(task => createTaskElement(task.text, task.completed));
+    updateTaskCount();
 };
 
 function addTask() {
@@ -31,6 +32,7 @@ function createTaskElement(text, completed) {
     `;
 
     taskList.appendChild(li);
+    updateTaskCount();
 }
 
 // Toggle complete
@@ -43,6 +45,7 @@ function toggleTask(button) {
 // Delete task
 function deleteTask(button) {
     button.parentElement.parentElement.remove();
+    updateTaskCount();
     updateStorage();
 }
 
