@@ -17,7 +17,16 @@
         </div>
 
         <p id="taskCount">Total Tasks: 0</p>
-        <ul id="taskList"></ul>
+
+<div class="filters">
+    <button onclick="filterTasks('all')">All</button>
+    <button onclick="filterTasks('completed')">Completed</button>
+    <button onclick="filterTasks('pending')">Pending</button>
+</div>
+
+<button onclick="clearAllTasks()" class="clear-btn">Clear All</button>
+
+<ul id="taskList"></ul>
     </div>
 
     <script src="script.js"></script>
