@@ -1,7 +1,15 @@
 let selectedDate = "";
 
+/* CALENDAR FIX */
 function openDate() {
-    document.getElementById("dateInput").click();
+    const input = document.getElementById("dateInput");
+    input.style.display = "block";
+    input.focus();
+    input.click();
+
+    setTimeout(() => {
+        input.style.display = "none";
+    }, 200);
 }
 
 document.getElementById("dateInput").addEventListener("change", function () {
@@ -45,8 +53,8 @@ function addTask() {
     edit.innerText = "✏";
     edit.className = "edit-btn";
     edit.onclick = () => {
-        let newText = prompt("Edit task:", span.innerText);
-        if (newText) span.innerText = newText;
+        let newText = prompt("Edit task:", text);
+        if (newText) span.innerHTML = newText;
     };
 
     let del = document.createElement("button");
@@ -96,7 +104,7 @@ function clearAllTasks() {
     }
 }
 
-/* DARK MODE */
+/* DARK MODE FIX */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 

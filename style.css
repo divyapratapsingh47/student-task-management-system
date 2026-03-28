@@ -19,7 +19,7 @@ body.dark {
     background: white;
     padding: 25px;
     border-radius: 12px;
-    width: 320px;
+    width: 340px;
     text-align: center;
 }
 
@@ -32,21 +32,28 @@ body.dark .container {
     margin-bottom: 10px;
 }
 
-/* INPUT SECTION */
+/* INPUT SECTION FIXED */
 .input-section {
     display: flex;
     gap: 5px;
     margin-top: 10px;
+    width: 100%;
 }
 
 .input-section input {
     flex: 1;
+    min-width: 0;
     padding: 6px;
 }
 
-.input-section select,
+.input-section select {
+    width: 70px;
+    padding: 6px;
+}
+
 .input-section button {
     padding: 6px;
+    white-space: nowrap;
 }
 
 /* CALENDAR BUTTON */
@@ -54,6 +61,13 @@ body.dark .container {
     background: #444;
     color: white;
     border-radius: 6px;
+}
+
+/* HIDE DATE INPUT */
+#dateInput {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* FILTER */
@@ -70,7 +84,7 @@ body.dark .container {
     border-radius: 6px;
 }
 
-/* TASK LIST */
+/* TASK ROW */
 li {
     list-style: none;
     display: flex;
@@ -100,30 +114,38 @@ li {
 /* BUTTON GROUP */
 .task-actions {
     display: flex;
+    align-items: center;
     gap: 6px;
 }
 
-/* BUTTONS */
+/* BUTTONS FIXED ALIGNMENT */
+.done-btn,
+.edit-btn,
+.delete-btn {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
 .done-btn {
     background: blue;
     color: white;
-    width: 32px;
-    height: 32px;
 }
 
 .edit-btn {
     background: orange;
     color: white;
-    width: 32px;
-    height: 32px;
-    transform: rotate(-20deg);
+    transform: rotate(-15deg);
 }
 
 .delete-btn {
     background: red;
     color: white;
-    width: 32px;
-    height: 32px;
 }
 
 /* COMPLETED */
@@ -132,7 +154,7 @@ li {
     opacity: 0.6;
 }
 
-/* TOOLTIP */
+/* TOOLTIP FIXED */
 .tooltip {
     position: relative;
 }
@@ -144,8 +166,10 @@ li {
     padding: 5px;
     border-radius: 5px;
     position: absolute;
-    top: -30px;
-    left: -10px;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
 }
 
 .tooltip:hover .tooltiptext {
