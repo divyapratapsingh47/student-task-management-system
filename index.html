@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Task Manager</title>
+
+    <!-- ⭐ CHANGE: Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,10 +17,11 @@
 
     <h1>🚀 Student Task Manager</h1>
 
-    <!-- DARK MODE -->
-    <button onclick="toggleDarkMode()" id="modeBtn">🌙 Dark Mode</button>
+    <!-- ⭐ CHANGE: Icon instead of emoji -->
+    <button onclick="toggleDarkMode()" id="modeBtn">
+        <i class="fa-solid fa-moon"></i> Dark Mode
+    </button>
 
-    <!-- INPUT ROW -->
     <div class="input-row">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
@@ -26,28 +31,30 @@
             <option value="high">High</option>
         </select>
 
-        <!-- CALENDAR BUTTON -->
+        <!-- ⭐ CHANGE: Calendar icon -->
         <div class="tooltip">
-            <button class="icon-btn" onclick="openDate()">📅</button>
+            <button class="icon-btn calendar-btn" onclick="openDate()">
+                <i class="fa-solid fa-calendar"></i>
+            </button>
             <span class="tooltip-text">Select Deadline</span>
         </div>
 
-        <!-- HIDDEN DATE INPUT -->
         <input type="date" id="dateInput">
 
-        <button onclick="addTask()">Add</button>
+        <button class="add-btn" onclick="addTask()">Add</button>
     </div>
 
     <p id="taskCount">Total Tasks: 0</p>
 
-    <!-- FILTERS -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button class="clear-btn" onclick="clearAllTasks()">🗑 Clear All</button>
+    <button class="clear-btn" onclick="clearAllTasks()">
+        <i class="fa-solid fa-trash"></i> Clear All
+    </button>
 
     <ul id="taskList"></ul>
 

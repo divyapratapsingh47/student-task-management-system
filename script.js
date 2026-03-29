@@ -5,10 +5,11 @@ function toggleDarkMode() {
 
     const btn = document.getElementById("modeBtn");
 
+    // ⭐ CHANGE: icon switch
     if (document.body.classList.contains("dark")) {
-        btn.innerText = "☀ Light Mode";
+        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
     } else {
-        btn.innerText = "🌙 Dark Mode";
+        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
     }
 }
 
@@ -16,7 +17,7 @@ function openDate() {
     const input = document.getElementById("dateInput");
 
     if (input.showPicker) {
-        input.showPicker(); // modern browsers
+        input.showPicker();
     } else {
         input.focus();
         input.click();
@@ -41,6 +42,7 @@ function renderTasks() {
     list.innerHTML = "";
 
     tasks.forEach((task, index) => {
+
         let li = document.createElement("li");
         li.classList.add(task.priority);
 
@@ -57,20 +59,28 @@ function renderTasks() {
             <span>${task.text}${dateText}</span>
 
             <div class="actions">
+
                 <div class="tooltip">
-                    <button class="icon-btn done" onclick="toggleTask(${index})">✔</button>
+                    <button class="icon-btn done" onclick="toggleTask(${index})">
+                        <i class="fa-solid fa-check"></i>
+                    </button>
                     <span class="tooltip-text">Done</span>
                 </div>
 
                 <div class="tooltip">
-                    <button class="icon-btn edit" onclick="editTask(${index})">✏</button>
+                    <button class="icon-btn edit" onclick="editTask(${index})">
+                        <i class="fa-solid fa-pen pencil"></i>
+                    </button>
                     <span class="tooltip-text">Edit</span>
                 </div>
 
                 <div class="tooltip">
-                    <button class="icon-btn delete" onclick="deleteTask(${index})">🗑</button>
+                    <button class="icon-btn delete" onclick="deleteTask(${index})">
+                        <i class="fa-solid fa-trash"></i>
+                    </button>
                     <span class="tooltip-text">Delete</span>
                 </div>
+
             </div>
         `;
 

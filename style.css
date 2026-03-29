@@ -5,7 +5,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
     background: linear-gradient(135deg, purple, blue);
 }
 
@@ -17,15 +16,11 @@ body {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 10px;
-}
-
-/* INPUT ROW */
 .input-row {
     display: flex;
     gap: 8px;
     justify-content: center;
+    align-items: center;
     margin: 10px 0;
 }
 
@@ -33,10 +28,13 @@ input, select {
     padding: 6px;
 }
 
-/* BUTTONS */
 button {
     padding: 6px 10px;
     cursor: pointer;
+}
+
+.add-btn {
+    white-space: nowrap;
 }
 
 .clear-btn {
@@ -48,7 +46,7 @@ button {
     border-radius: 6px;
 }
 
-/* TASK LIST */
+/* TASK */
 li {
     display: flex;
     justify-content: space-between;
@@ -56,31 +54,54 @@ li {
     margin-top: 10px;
     padding: 10px;
     border-radius: 8px;
-    background: #ddd;
 }
 
-/* PRIORITY COLORS */
+/* PRIORITY */
 .high { background: #f8c6c6; border-left: 5px solid red; }
 .medium { background: #f5e6b3; border-left: 5px solid orange; }
 .low { background: #cdeccd; border-left: 5px solid green; }
 
-/* BUTTON GROUP */
+/* ACTIONS */
 .actions {
     display: flex;
-    gap: 5px;
+    gap: 6px;
+    align-items: center;
 }
 
-/* ICON BUTTONS */
 .icon-btn {
     border: none;
     padding: 6px;
-    border-radius: 5px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ⭐ CHANGE: ICON SIZE */
+.icon-btn i {
+    font-size: 14px;
+}
+
+/* ⭐ CHANGE: Tilt ONLY pencil */
+.pencil {
+    transform: rotate(-20deg);
+}
+
+/* ⭐ CHANGE: Hover animation */
+.icon-btn:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease;
 }
 
 /* COLORS */
-.done { background: blue; color: white; }
-.edit { background: orange; color: white; transform: rotate(-15deg); }
-.delete { background: red; color: white; }
+.done { background: #0057ff; color: white; }
+.edit { background: #ff9800; color: white; }
+.delete { background: #ff2d2d; color: white; }
+
+.calendar-btn {
+    background: #444;
+    color: white;
+}
 
 /* TOOLTIP */
 .tooltip {
@@ -104,12 +125,10 @@ li {
     display: block;
 }
 
-/* HIDE DATE INPUT BUT KEEP FUNCTIONAL */
+/* HIDE DATE */
 #dateInput {
     position: absolute;
     opacity: 0;
-    width: 1px;
-    height: 1px;
 }
 
 /* DARK MODE */
