@@ -22,13 +22,12 @@
             <option value="low">Low</option>
         </select>
 
-        <!-- CALENDAR BUTTON -->
-        <button class="calendar-btn tooltip" onclick="openCalendar(event)">
-            📅
+        <div class="tooltip">
+            <button id="calendarBtn">📅</button>
             <span class="tooltip-text">Select Deadline</span>
-        </button>
+        </div>
 
-        <input type="date" id="deadline" hidden>
+        <input type="date" id="deadline">
 
         <button class="add-btn" onclick="addTask()">Add</button>
     </div>

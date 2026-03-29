@@ -5,18 +5,20 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+
+    /* 🔥 LIGHT MODE (YOUR SCREENSHOT STYLE) */
+    background: linear-gradient(135deg, #cfd9ff, #e2ebff);
 }
 
-/* PREMIUM GLASS */
+/* GLASS CARD */
 .container {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(25px);
     padding: 30px;
     border-radius: 20px;
-    width: 360px;
+    width: 380px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
 /* INPUT */
@@ -39,23 +41,30 @@ select {
     border-radius: 10px;
 }
 
-/* BUTTONS */
-.add-btn {
-    background: #00c2ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.calendar-btn {
+/* CALENDAR */
+#calendarBtn {
     background: black;
     color: white;
     border-radius: 10px;
     width: 40px;
     height: 40px;
     border: none;
+    cursor: pointer;
+}
+
+#deadline {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* ADD */
+.add-btn {
+    background: #00c2ff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
     cursor: pointer;
 }
 
@@ -74,7 +83,6 @@ select {
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 12px;
 }
 
 .tooltip:hover .tooltip-text {
@@ -93,50 +101,54 @@ select {
 /* TASK */
 li {
     list-style: none;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 /* PRIORITY */
-.high { background: #ffcccc; border-left: 5px solid red; }
-.medium { background: #fff3cd; border-left: 5px solid orange; }
-.low { background: #d4edda; border-left: 5px solid green; }
+.high { background: #ffcccc; border-left: 6px solid red; }
+.medium { background: #fff3cd; border-left: 6px solid orange; }
+.low { background: #d4edda; border-left: 6px solid green; }
 
-/* ACTIONS */
+/* ACTION BUTTONS (FIXED ALIGNMENT) */
 .actions {
     display: flex;
-    gap: 6px;
+    gap: 8px;
+    align-items: center;
 }
 
 .actions button {
-    width: 35px;
-    height: 35px;
+    width: 38px;
+    height: 38px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* COLORS */
-.done { background: blue; color: white; }
-.edit { background: orange; color: white; }
-.delete { background: red; color: white; }
+.done { background: #007bff; color: white; }
+.edit { background: #ff9800; color: white; }
+.delete { background: #f44336; color: white; }
 
-/* ONLY ICON TILT */
+/* ✏️ ONLY ICON TILT */
 .edit span {
+    transform: rotate(-25deg);
     display: inline-block;
-    transform: rotate(-20deg);
 }
 
-/* 🌙 DARK MODE PREMIUM (GREENISH) */
+/* 🌙 DARK MODE (PREMIUM GREENISH) */
 .dark {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
     color: white;
 }
 
 .dark .container {
-    background: rgba(0, 30, 20, 0.6);
+    background: rgba(0, 40, 30, 0.6);
 }

@@ -3,10 +3,11 @@ const priority = document.getElementById("priority");
 const taskList = document.getElementById("taskList");
 const count = document.getElementById("count");
 const deadlineInput = document.getElementById("deadline");
+const calendarBtn = document.getElementById("calendarBtn");
 
 let tasks = [];
 
-/* DARK MODE FIX */
+/* 🌙 DARK MODE */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
     const btn = document.getElementById("modeToggle");
@@ -18,12 +19,17 @@ function toggleDarkMode() {
     }
 }
 
-/* CALENDAR FIX */
-function openCalendar(e) {
-    deadlineInput.showPicker();
-}
+/* 📅 CALENDAR FIX (POSITIONED CORRECTLY) */
+calendarBtn.addEventListener("click", (e) => {
+    const rect = calendarBtn.getBoundingClientRect();
 
-/* ADD TASK FIX */
+    deadlineInput.style.left = rect.left + "px";
+    deadlineInput.style.top = rect.bottom + "px";
+
+    deadlineInput.showPicker();
+});
+
+/* ADD TASK */
 function addTask() {
     const text = taskInput.value.trim();
     if (!text) return;
@@ -60,7 +66,9 @@ function renderTasks(filter = "all") {
             : "";
 
         li.innerHTML = `
-            <div>${task.text}<br>${date}</div>
+            <div>
+                ${task.text}<br>${date}
+            </div>
 
             <div class="actions">
                 <button class="done" onclick="toggleComplete(${index})">✔</button>
@@ -82,7 +90,7 @@ function toggleComplete(index) {
 }
 
 function editTask(index) {
-    const newText = prompt("Edit:", tasks[index].text);
+    const newText = prompt("Edit task:", tasks[index].text);
     if (newText) {
         tasks[index].text = newText;
         renderTasks();
