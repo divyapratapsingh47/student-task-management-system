@@ -1,122 +1,114 @@
 body {
     margin: 0;
     font-family: Arial;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, purple, blue);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
 }
 
-/* 🔥 PREMIUM CARD */
+/* PREMIUM GLASS */
 .container {
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(12px);
-    padding: 25px;
-    border-radius: 15px;
-    width: 350px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 360px;
     text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* 🔧 FIXED INPUT LAYOUT */
+/* INPUT SECTION */
 .input-section {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 15px 0;
+    gap: 8px;
+    margin-top: 10px;
 }
 
-/* INPUT */
 #taskInput {
     flex: 1;
     padding: 10px;
-    border-radius: 8px;
-    border: none;
-}
-
-/* DROPDOWN */
-#priority {
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-}
-
-/* CALENDAR BUTTON */
-.calendar-btn {
-    width: 38px;
-    height: 38px;
     border-radius: 10px;
     border: none;
-    background: #222;
+}
+
+select {
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* BUTTONS */
+.add-btn {
+    background: #00c2ff;
     color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
     cursor: pointer;
 }
 
-/* 🔧 FIXED ADD BUTTON */
-.add-btn {
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    background: #00c2ff;
+.calendar-btn {
+    background: black;
     color: white;
-    font-weight: bold;
+    border-radius: 10px;
+    width: 40px;
+    border: none;
 }
 
-/* CLEAR BUTTON */
+/* FILTER */
+.filters button {
+    margin: 5px;
+}
+
+/* CLEAR */
 .clear-btn {
     background: red;
     color: white;
-    padding: 10px;
     border: none;
+    padding: 10px;
     border-radius: 10px;
 }
 
 /* TASK LIST */
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-/* 🔧 ALIGNMENT FIX */
 li {
-    background: #eee;
-    margin: 10px 0;
-    padding: 12px;
+    list-style: none;
+    margin-top: 10px;
+    padding: 10px;
     border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* ACTIONS */
+/* PRIORITY COLORS */
+.high { background: #ffcccc; border-left: 5px solid red; }
+.medium { background: #fff3cd; border-left: 5px solid orange; }
+.low { background: #d4edda; border-left: 5px solid green; }
+
+/* ACTION BUTTONS */
 .actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
 }
 
-/* BUTTONS */
 .actions button {
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
 }
 
-/* 🔧 KEY FIX: ONLY ICON TILT */
-.actions .edit {
+/* COLORS */
+.done { background: blue; color: white; }
+.edit { background: orange; color: white; }
+.delete { background: red; color: white; }
+
+/* 🔥 ONLY ICON TILT */
+.edit span {
+    display: inline-block;
     transform: rotate(-20deg);
-}
-
-/* PRIORITY COLORS */
-.high { background: #ffcccc; }
-.medium { background: #fff3cd; }
-.low { background: #d4edda; }
-
-/* COMPLETED */
-.completed span {
-    text-decoration: line-through;
 }
 
 /* DARK MODE */
@@ -126,5 +118,5 @@ li {
 }
 
 .dark .container {
-    background: #222;
+    background: rgba(0,0,0,0.6);
 }

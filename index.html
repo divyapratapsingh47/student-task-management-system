@@ -2,22 +2,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Task Manager</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
 <div class="container">
-    <h1>🚀 Student Task Manager</h1>
+    <h2>🚀 Student Task Manager</h2>
 
-    <!-- 🔧 CHANGE: Toggle button centered -->
     <button id="modeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-    <!-- 🔧 CHANGE: CLEAN INPUT STRUCTURE -->
     <div class="input-section">
-
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
         <select id="priority">
@@ -26,17 +21,14 @@
             <option value="low">Low</option>
         </select>
 
-        <!-- 🔧 CHANGE: ICON BUTTON (NOT INPUT BOX) -->
-        <button onclick="openCalendar()" class="calendar-btn" title="Select Deadline">📅</button>
+        <button class="calendar-btn" onclick="openCalendar()" title="Select Deadline">📅</button>
 
-        <button onclick="addTask()" class="add-btn">Add</button>
+        <input type="date" id="deadline" hidden>
 
+        <button class="add-btn" onclick="addTask()">Add</button>
     </div>
 
-    <!-- 🔧 CHANGE: Hidden date OUTSIDE layout -->
-    <input type="date" id="deadline" style="display:none;">
-
-    <p id="taskCount">Total Tasks: 0</p>
+    <p>Total Tasks: <span id="count">0</span></p>
 
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
@@ -44,14 +36,11 @@
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button onclick="clearAllTasks()" class="clear-btn">🗑 Clear All</button>
+    <button class="clear-btn" onclick="clearAll()">🗑 Clear All</button>
 
     <ul id="taskList"></ul>
-
 </div>
 
-<!-- 🔥 VERY IMPORTANT FIX -->
 <script src="script.js"></script>
-
 </body>
 </html>
