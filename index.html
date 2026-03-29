@@ -2,33 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Task Manager</title>
+
+    <!-- ⭐ CHANGE: Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div class="container">
-    <h2>🚀 Student Task Manager</h2>
 
-    <button id="modeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+    <h1>🚀 Student Task Manager</h1>
 
-    <div class="input-section">
+    <!-- ⭐ CHANGE: Icon instead of emoji -->
+    <button onclick="toggleDarkMode()" id="modeBtn">
+        <i class="fa-solid fa-moon"></i> Dark Mode
+    </button>
+
+    <div class="input-row">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
         <select id="priority">
-            <option value="high">High</option>
-            <option value="medium">Medium</option>
             <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
         </select>
 
-        <button class="calendar-btn" onclick="openCalendar()" title="Select Deadline">📅</button>
+        <!-- ⭐ CHANGE: Calendar icon -->
+        <div class="tooltip">
+            <button class="icon-btn calendar-btn" onclick="openDate()">
+                <i class="fa-solid fa-calendar"></i>
+            </button>
+            <span class="tooltip-text">Select Deadline</span>
+        </div>
 
-        <input type="date" id="deadline" hidden>
+        <input type="date" id="dateInput">
 
         <button class="add-btn" onclick="addTask()">Add</button>
     </div>
 
-    <p>Total Tasks: <span id="count">0</span></p>
+    <p id="taskCount">Total Tasks: 0</p>
 
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
@@ -36,9 +52,12 @@
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button class="clear-btn" onclick="clearAll()">🗑 Clear All</button>
+    <button class="clear-btn" onclick="clearAllTasks()">
+        <i class="fa-solid fa-trash"></i> Clear All
+    </button>
 
     <ul id="taskList"></ul>
+
 </div>
 
 <script src="script.js"></script>

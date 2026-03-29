@@ -1,122 +1,147 @@
 body {
-    margin: 0;
     font-family: Arial;
+    margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    background: linear-gradient(135deg, purple, blue);
 }
 
-/* PREMIUM GLASS */
 .container {
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(20px);
-    padding: 30px;
-    border-radius: 20px;
-    width: 360px;
+    background: #eee;
+    padding: 20px;
+    border-radius: 15px;
+    width: 350px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* INPUT SECTION */
-.input-section {
+.input-row {
     display: flex;
     gap: 8px;
-    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
 }
 
-#taskInput {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
+input, select {
+    padding: 6px;
 }
 
-select {
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* BUTTONS */
-.add-btn {
-    background: #00c2ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
+button {
+    padding: 6px 10px;
     cursor: pointer;
 }
 
-.calendar-btn {
-    background: black;
-    color: white;
-    border-radius: 10px;
-    width: 40px;
-    border: none;
+.add-btn {
+    white-space: nowrap;
 }
 
-/* FILTER */
-.filters button {
-    margin: 5px;
-}
-
-/* CLEAR */
 .clear-btn {
     background: red;
     color: white;
     border: none;
-    padding: 10px;
-    border-radius: 10px;
+    margin-top: 10px;
+    padding: 8px;
+    border-radius: 6px;
 }
 
-/* TASK LIST */
+/* TASK */
 li {
-    list-style: none;
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
-/* PRIORITY COLORS */
-.high { background: #ffcccc; border-left: 5px solid red; }
-.medium { background: #fff3cd; border-left: 5px solid orange; }
-.low { background: #d4edda; border-left: 5px solid green; }
+/* PRIORITY */
+.high { background: #f8c6c6; border-left: 5px solid red; }
+.medium { background: #f5e6b3; border-left: 5px solid orange; }
+.low { background: #cdeccd; border-left: 5px solid green; }
 
-/* ACTION BUTTONS */
+/* ACTIONS */
 .actions {
     display: flex;
     gap: 6px;
+    align-items: center;
 }
 
-.actions button {
-    width: 35px;
-    height: 35px;
-    border-radius: 10px;
+.icon-btn {
     border: none;
-    cursor: pointer;
+    padding: 6px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ⭐ CHANGE: ICON SIZE */
+.icon-btn i {
+    font-size: 14px;
+}
+
+/* ⭐ CHANGE: Tilt ONLY pencil */
+.pencil {
+    transform: rotate(-20deg);
+}
+
+/* ⭐ CHANGE: Hover animation */
+.icon-btn:hover {
+    transform: scale(1.1);
+    transition: 0.2s ease;
 }
 
 /* COLORS */
-.done { background: blue; color: white; }
-.edit { background: orange; color: white; }
-.delete { background: red; color: white; }
+.done { background: #0057ff; color: white; }
+.edit { background: #ff9800; color: white; }
+.delete { background: #ff2d2d; color: white; }
 
-/* 🔥 ONLY ICON TILT */
-.edit span {
-    display: inline-block;
-    transform: rotate(-20deg);
+.calendar-btn {
+    background: #444;
+    color: white;
+}
+
+/* TOOLTIP */
+.tooltip {
+    position: relative;
+}
+
+.tooltip-text {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: black;
+    color: white;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    display: none;
+}
+
+.tooltip:hover .tooltip-text {
+    display: block;
+}
+
+/* HIDE DATE */
+#dateInput {
+    position: absolute;
+    opacity: 0;
 }
 
 /* DARK MODE */
 .dark {
-    background: black;
+    background: #111;
     color: white;
 }
 
 .dark .container {
-    background: rgba(0,0,0,0.6);
+    background: #222;
+}
+
+.completed span {
+    text-decoration: line-through;
+    color: gray;
 }
