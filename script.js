@@ -21,6 +21,7 @@ addTaskBtn.addEventListener("click", () => {
   if (!text) return;
 
   tasks.push({
+    id: Date.now(),
     text,
     priority: priority.value,
     date: deadlineInput.value,
@@ -32,6 +33,21 @@ addTaskBtn.addEventListener("click", () => {
 
   renderTasks();
 });
+
+/* DATE FORMAT */
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+
+  const day = d.toLocaleDateString("en-US", { weekday: "short" });
+  const date = d.toLocaleDateString("en-US", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric"
+  });
+
+  return `${date} (${day})`;
+}
 
 /* RENDER */
 function renderTasks(filter = "all") {
@@ -45,47 +61,48 @@ function renderTasks(filter = "all") {
     filtered = tasks.filter(t => !t.completed);
   }
 
-  filtered.forEach((task, index) => {
+  filtered.forEach(task => {
     const li = document.createElement("li");
     li.className = task.priority;
 
     const text = document.createElement("div");
-    text.innerHTML = `
-      <strong>${task.text}</strong><br>
-      ${task.date ? new Date(task.date).toDateString() : ""}
-    `;
+    text.innerHTML = `<strong>${task.text}</strong><br>${formatDate(task.date)}`;
 
     const actions = document.createElement("div");
     actions.className = "actions";
 
-    /* DONE */
     const doneBtn = document.createElement("button");
     doneBtn.className = "done";
     doneBtn.innerHTML = "✔";
+    doneBtn.setAttribute("data-tooltip", "Done");
     doneBtn.onclick = () => {
-      tasks[index].completed = !tasks[index].completed;
-      renderTasks();
+      tasks = tasks.map(t =>
+        t.id === task.id ? { ...t, completed: !t.completed } : t
+      );
+      renderTasks(filter);
     };
 
-    /* EDIT */
     const editBtn = document.createElement("button");
     editBtn.className = "edit";
-    editBtn.innerHTML = "<span>✏</span>";
+    editBtn.innerHTML = "✏";
+    editBtn.setAttribute("data-tooltip", "Edit");
     editBtn.onclick = () => {
       const newText = prompt("Edit task:", task.text);
       if (newText) {
-        tasks[index].text = newText;
-        renderTasks();
+        tasks = tasks.map(t =>
+          t.id === task.id ? { ...t, text: newText } : t
+        );
+        renderTasks(filter);
       }
     };
 
-    /* DELETE */
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete";
     deleteBtn.innerHTML = "🗑";
+    deleteBtn.setAttribute("data-tooltip", "Delete");
     deleteBtn.onclick = () => {
-      tasks.splice(index, 1);
-      renderTasks();
+      tasks = tasks.filter(t => t.id !== task.id);
+      renderTasks(filter);
     };
 
     actions.append(doneBtn, editBtn, deleteBtn);

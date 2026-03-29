@@ -1,99 +1,82 @@
 body {
-  margin: 0;
   font-family: Arial;
+  margin: 0;
+  background: linear-gradient(135deg, #a7b8d8, #c2d1ea);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(135deg, #a8bcd9, #d6e2f0);
 }
 
-/* DARK MODE */
-.dark {
-  background: linear-gradient(135deg, #0f2027, #1c3b2f, #2e7d5a);
+/* DARK MODE (GREENISH) */
+body.dark {
+  background: linear-gradient(135deg, #0f2027, #203a2e);
   color: white;
 }
 
 .container {
-  background: rgba(255,255,255,0.2);
-  backdrop-filter: blur(20px);
-  padding: 25px;
-  border-radius: 16px;
-  width: 320px;
+  background: rgba(255,255,255,0.3);
+  backdrop-filter: blur(15px);
+  padding: 20px;
+  border-radius: 20px;
+  width: 350px;
   text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
-.dark .container {
-  background: rgba(0, 50, 40, 0.55);
+body.dark .container {
+  background: rgba(0,0,0,0.4);
 }
 
-/* INPUT SECTION */
+h1 {
+  margin-bottom: 10px;
+}
+
+/* INPUT */
 .input-section {
   display: flex;
   gap: 8px;
-  margin: 10px 0;
+  justify-content: center;
   align-items: center;
+  margin: 10px 0;
 }
 
 input, select {
   padding: 8px;
-  border-radius: 6px;
+  border-radius: 8px;
   border: none;
+}
+
+/* BUTTON */
+button {
+  padding: 8px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* ADD BUTTON */
 #addTask {
   background: #00bcd4;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
-/* CALENDAR ICON */
-.icon-btn {
-  background: #111;
+/* CLEAR */
+#clearAll {
+  background: red;
   color: white;
-  border: none;
-  border-radius: 10px;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  position: relative;
-}
-
-/* TOOLTIP */
-.icon-btn::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 130%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.85);
-  color: white;
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  opacity: 0;
-  transition: 0.2s;
-}
-
-.icon-btn:hover::after {
-  opacity: 1;
-}
-
-/* HIDE DATE INPUT */
-#deadline {
-  position: absolute;
-  opacity: 0;
-}
-
-/* TASK ITEM */
-li {
-  list-style: none;
-  padding: 12px;
   margin-top: 10px;
+}
+
+/* TASK LIST */
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+  padding: 12px;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
@@ -101,9 +84,9 @@ li {
 }
 
 /* PRIORITY COLORS */
-.low { background: #c8e6c9; }
-.medium { background: #ffe0b2; }
-.high { background: #ffcdd2; }
+.low { background: #f4e1a1; }
+.medium { background: #a1c4a1; }
+.high { background: #e6a1a1; }
 
 /* ACTION BUTTONS */
 .actions {
@@ -112,50 +95,41 @@ li {
 }
 
 .actions button {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  border: none;
-  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  transition: 0.2s;
+  position: relative;
 }
 
-.actions button:hover {
-  transform: scale(1.05);
-}
+.done { background: #2196f3; color: white; }
+.edit { background: orange; color: white; }
+.delete { background: red; color: white; }
 
-/* COLORS */
-.done {
-  background: linear-gradient(135deg, #007bff, #00c6ff);
+/* TOOLTIP */
+button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
   color: white;
-}
-
-.edit {
-  background: linear-gradient(135deg, #ff9800, #ffb74d);
-  color: white;
-}
-
-.delete {
-  background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
-  color: white;
-}
-
-/* TILT ICON */
-.edit span {
-  transform: rotate(-25deg);
-  display: inline-block;
-}
-
-/* CLEAR */
-#clearAll {
-  background: red;
-  color: white;
-  padding: 8px;
+  padding: 5px 8px;
   border-radius: 6px;
-  border: none;
-  margin-top: 10px;
+  font-size: 11px;
+  opacity: 0;
+  transition: 0.2s;
+  white-space: nowrap;
+}
+
+button:hover::after {
+  opacity: 1;
+}
+
+/* HIDE DATE INPUT */
+#deadline {
+  display: none;
 }
