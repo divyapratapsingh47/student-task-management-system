@@ -10,10 +10,13 @@ const deadlineInput = document.getElementById("deadline");
 
 let tasks = [];
 
-/* CALENDAR FIX */
+/* ✅ FINAL CALENDAR FIX */
 calendarBtn.addEventListener("click", () => {
-  deadlineInput.focus();
-  deadlineInput.click();
+  if (deadlineInput.showPicker) {
+    deadlineInput.showPicker(); // modern browsers
+  } else {
+    deadlineInput.focus(); // fallback
+  }
 });
 
 /* ADD TASK */

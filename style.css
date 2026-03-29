@@ -8,7 +8,7 @@ body {
   height: 100vh;
 }
 
-/* DARK MODE (greenish premium) */
+/* DARK MODE */
 body.dark {
   background: linear-gradient(135deg, #0f2027, #203a2e);
   color: white;
@@ -42,6 +42,13 @@ input, select {
   border: none;
 }
 
+/* DATE INPUT FIX (IMPORTANT) */
+#deadline {
+  position: absolute;
+  opacity: 0;
+}
+
+/* BUTTONS */
 button {
   padding: 8px 10px;
   border: none;
@@ -49,13 +56,11 @@ button {
   cursor: pointer;
 }
 
-/* ADD BUTTON */
 #addTask {
   background: #00bcd4;
   color: white;
 }
 
-/* CLEAR */
 #clearAll {
   background: red;
   color: white;
@@ -98,12 +103,15 @@ li {
   position: relative;
 }
 
-/* PREMIUM COLORS */
 .done { background: #2196f3; color: white; }
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* TOOLTIP FIXED */
+/* TOOLTIP FIX */
+button[data-tooltip] {
+  position: relative;
+}
+
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
@@ -122,16 +130,4 @@ button[data-tooltip]::after {
 
 button[data-tooltip]:hover::after {
   opacity: 1;
-}
-
-/* CALENDAR FIX */
-#calendarBtn {
-  position: relative;
-}
-
-/* HIDDEN DATE (SMART FIX) */
-#deadline {
-  position: absolute;
-  opacity: 0;
-  pointer-events: none;
 }
