@@ -10,112 +10,108 @@ const deadlineInput = document.getElementById("deadline");
 
 let tasks = [];
 
-/* CALENDAR FIX */
+/* CALENDAR */
 calendarBtn.addEventListener("click", () => {
-    deadlineInput.showPicker();
+  deadlineInput.showPicker();
 });
 
 /* ADD TASK */
 addTaskBtn.addEventListener("click", () => {
-    const text = taskInput.value.trim();
-    const pr = priority.value;
-    const date = deadlineInput.value;
+  const text = taskInput.value.trim();
+  if (!text) return;
 
-    if (!text) return;
+  tasks.push({
+    text,
+    priority: priority.value,
+    date: deadlineInput.value,
+    completed: false
+  });
 
-    tasks.push({
-        text,
-        pr,
-        date,
-        completed: false
-    });
+  taskInput.value = "";
+  deadlineInput.value = "";
 
-    taskInput.value = "";
-    deadlineInput.value = "";
-
-    renderTasks();
+  renderTasks();
 });
 
 /* RENDER */
 function renderTasks(filter = "all") {
-    taskList.innerHTML = "";
+  taskList.innerHTML = "";
 
-    let filtered = tasks;
+  let filtered = tasks;
 
-    if (filter === "completed") {
-        filtered = tasks.filter(t => t.completed);
-    } else if (filter === "pending") {
-        filtered = tasks.filter(t => !t.completed);
-    }
+  if (filter === "completed") {
+    filtered = tasks.filter(t => t.completed);
+  } else if (filter === "pending") {
+    filtered = tasks.filter(t => !t.completed);
+  }
 
-    filtered.forEach((task, index) => {
+  filtered.forEach((task, index) => {
+    const li = document.createElement("li");
+    li.className = task.priority;
 
-        const li = document.createElement("li");
-        li.className = task.pr;
+    const text = document.createElement("div");
+    text.innerHTML = `
+      <strong>${task.text}</strong><br>
+      ${task.date ? new Date(task.date).toDateString() : ""}
+    `;
 
-        const text = document.createElement("div");
-        text.innerHTML = `
-            <strong>${task.text}</strong><br>
-            ${task.date ? new Date(task.date).toDateString() : ""}
-        `;
+    const actions = document.createElement("div");
+    actions.className = "actions";
 
-        const actions = document.createElement("div");
-        actions.className = "actions";
+    /* DONE */
+    const doneBtn = document.createElement("button");
+    doneBtn.className = "done";
+    doneBtn.innerHTML = "✔";
+    doneBtn.onclick = () => {
+      tasks[index].completed = !tasks[index].completed;
+      renderTasks();
+    };
 
-        const doneBtn = document.createElement("button");
-        doneBtn.className = "done";
-        doneBtn.innerHTML = "✔";
-        doneBtn.onclick = () => {
-            task.completed = !task.completed;
-            renderTasks();
-        };
+    /* EDIT */
+    const editBtn = document.createElement("button");
+    editBtn.className = "edit";
+    editBtn.innerHTML = "<span>✏</span>";
+    editBtn.onclick = () => {
+      const newText = prompt("Edit task:", task.text);
+      if (newText) {
+        tasks[index].text = newText;
+        renderTasks();
+      }
+    };
 
-        const editBtn = document.createElement("button");
-        editBtn.className = "edit";
-        editBtn.innerHTML = "<span>✏</span>";
-        editBtn.onclick = () => {
-            const newText = prompt("Edit task:", task.text);
-            if (newText) {
-                task.text = newText;
-                renderTasks();
-            }
-        };
+    /* DELETE */
+    const deleteBtn = document.createElement("button");
+    deleteBtn.className = "delete";
+    deleteBtn.innerHTML = "🗑";
+    deleteBtn.onclick = () => {
+      tasks.splice(index, 1);
+      renderTasks();
+    };
 
-        const deleteBtn = document.createElement("button");
-        deleteBtn.className = "delete";
-        deleteBtn.innerHTML = "🗑";
-        deleteBtn.onclick = () => {
-            tasks.splice(index, 1);
-            renderTasks();
-        };
+    actions.append(doneBtn, editBtn, deleteBtn);
+    li.append(text, actions);
+    taskList.appendChild(li);
+  });
 
-        actions.append(doneBtn, editBtn, deleteBtn);
-        li.append(text, actions);
-
-        taskList.appendChild(li);
-    });
-
-    totalTasks.textContent = tasks.length;
+  totalTasks.textContent = tasks.length;
 }
 
 /* FILTER */
 function filterTasks(type) {
-    renderTasks(type);
+  renderTasks(type);
 }
 
 /* CLEAR */
 clearAll.addEventListener("click", () => {
-    tasks = [];
-    renderTasks();
+  tasks = [];
+  renderTasks();
 });
 
 /* THEME */
 themeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+  document.body.classList.toggle("dark");
 
-    if (document.body.classList.contains("dark")) {
-        themeToggle.innerText = "☀ Light Mode";
-    } else {
-        themeToggle.innerText = "🌙 Dark Mode";
-    }
+  themeToggle.innerText = document.body.classList.contains("dark")
+    ? "☀ Light Mode"
+    : "🌙 Dark Mode";
 });
