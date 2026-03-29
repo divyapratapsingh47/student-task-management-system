@@ -5,11 +5,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-
     background: linear-gradient(135deg, #4e54c8, #8f94fb);
 }
 
-/* 🌟 GLASS EFFECT */
+/* GLASS UI */
 .container {
     backdrop-filter: blur(15px);
     background: rgba(255, 255, 255, 0.15);
@@ -18,14 +17,11 @@ body {
     width: 360px;
     text-align: center;
     color: white;
-
     box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 }
 
-/* TITLE */
 h1 {
     margin-bottom: 10px;
-    font-weight: 600;
 }
 
 /* INPUT ROW */
@@ -36,14 +32,23 @@ h1 {
     margin: 15px 0;
 }
 
-input, select {
+/* ⭐ FIX 1: INPUT WIDTH */
+.input-row input {
+    flex: 1;
+    min-width: 0;
     padding: 8px;
     border-radius: 8px;
     border: none;
-    outline: none;
 }
 
-/* BUTTONS */
+/* ⭐ FIX 2: SELECT SIZE */
+.input-row select {
+    width: 80px;
+    padding: 8px;
+    border-radius: 8px;
+    border: none;
+}
+
 button {
     border: none;
     border-radius: 8px;
@@ -57,7 +62,7 @@ button {
     color: white;
 }
 
-/* CLEAR BUTTON */
+/* CLEAR */
 .clear-btn {
     background: linear-gradient(135deg, #ff416c, #ff4b2b);
     color: white;
@@ -70,19 +75,14 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     margin-top: 10px;
     padding: 12px;
-
     border-radius: 12px;
     background: rgba(255,255,255,0.15);
-
     backdrop-filter: blur(10px);
-
     transition: 0.2s;
 }
 
-/* HOVER TASK */
 li:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
@@ -121,17 +121,17 @@ li:hover {
     color: white;
 }
 
-/* ICON STYLE */
+/* ICON */
 .icon-btn i {
     font-size: 14px;
 }
 
-/* TILT PENCIL */
+/* TILT */
 .pencil {
     transform: rotate(-20deg);
 }
 
-/* HOVER EFFECT */
+/* HOVER */
 .icon-btn:hover {
     transform: scale(1.15);
 }
@@ -158,10 +158,16 @@ li:hover {
     display: block;
 }
 
-/* HIDE DATE */
+/* ⭐ FIX 3: DATE INPUT CLICK ISSUE */
 #dateInput {
     position: absolute;
     opacity: 0;
+    pointer-events: none;
+}
+
+/* ⭐ FIX 4: BUTTON CLICK LAYER */
+.input-row button {
+    z-index: 2;
 }
 
 /* DARK MODE */
