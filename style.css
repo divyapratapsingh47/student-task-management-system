@@ -1,139 +1,62 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
     margin: 0;
+    font-family: Arial;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
 }
 
-/* 🌟 GLASS EFFECT */
+/* PREMIUM GLASS */
 .container {
-    backdrop-filter: blur(15px);
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(20px);
+    padding: 30px;
     border-radius: 20px;
-    padding: 25px;
     width: 360px;
     text-align: center;
-    color: white;
-
-    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
 }
 
-/* TITLE */
-h1 {
-    margin-bottom: 10px;
-    font-weight: 600;
-}
-
-/* INPUT ROW */
-.input-row {
+/* INPUT */
+.input-section {
     display: flex;
     gap: 8px;
+    margin-top: 10px;
     align-items: center;
-    margin: 15px 0;
 }
 
-input, select {
-    padding: 8px;
-    border-radius: 8px;
+#taskInput {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
     border: none;
-    outline: none;
+}
+
+select {
+    padding: 10px;
+    border-radius: 10px;
 }
 
 /* BUTTONS */
-button {
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-/* ADD BUTTON */
 .add-btn {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    background: #00c2ff;
     color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
 }
 
-/* CLEAR BUTTON */
-.clear-btn {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+.calendar-btn {
+    background: black;
     color: white;
-    padding: 8px;
-    margin-top: 10px;
-}
-
-/* TASK */
-li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    margin-top: 10px;
-    padding: 12px;
-
-    border-radius: 12px;
-    background: rgba(255,255,255,0.15);
-
-    backdrop-filter: blur(10px);
-
-    transition: 0.2s;
-}
-
-/* HOVER TASK */
-li:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-/* PRIORITY */
-.high { border-left: 5px solid #ff4b2b; }
-.medium { border-left: 5px solid #ffc107; }
-.low { border-left: 5px solid #00ff88; }
-
-/* ACTION BUTTONS */
-.actions {
-    display: flex;
-    gap: 6px;
-}
-
-/* ICON BUTTON */
-.icon-btn {
-    padding: 6px;
-    border-radius: 6px;
-}
-
-/* COLORS */
-.done {
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    color: white;
-}
-
-.edit {
-    background: linear-gradient(135deg, #ffb347, #ff9800);
-    color: white;
-}
-
-.delete {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b);
-    color: white;
-}
-
-/* ICON STYLE */
-.icon-btn i {
-    font-size: 14px;
-}
-
-/* TILT PENCIL */
-.pencil {
-    transform: rotate(-20deg);
-}
-
-/* HOVER EFFECT */
-.icon-btn:hover {
-    transform: scale(1.15);
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
 }
 
 /* TOOLTIP */
@@ -142,39 +65,78 @@ li:hover {
 }
 
 .tooltip-text {
-    position: absolute;
-    bottom: 130%;
-    left: 50%;
-    transform: translateX(-50%);
+    visibility: hidden;
     background: black;
     color: white;
     padding: 5px;
-    font-size: 12px;
     border-radius: 5px;
-    display: none;
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
 }
 
 .tooltip:hover .tooltip-text {
-    display: block;
+    visibility: visible;
 }
 
-/* HIDE DATE */
-#dateInput {
-    position: absolute;
-    opacity: 0;
+/* CLEAR */
+.clear-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
 }
 
-/* DARK MODE */
+/* TASK */
+li {
+    list-style: none;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* PRIORITY */
+.high { background: #ffcccc; border-left: 5px solid red; }
+.medium { background: #fff3cd; border-left: 5px solid orange; }
+.low { background: #d4edda; border-left: 5px solid green; }
+
+/* ACTIONS */
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.actions button {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* COLORS */
+.done { background: blue; color: white; }
+.edit { background: orange; color: white; }
+.delete { background: red; color: white; }
+
+/* ONLY ICON TILT */
+.edit span {
+    display: inline-block;
+    transform: rotate(-20deg);
+}
+
+/* 🌙 DARK MODE PREMIUM (GREENISH) */
 .dark {
     background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: white;
 }
 
 .dark .container {
-    background: rgba(0,0,0,0.4);
-}
-
-/* COMPLETED */
-.completed span {
-    text-decoration: line-through;
-    opacity: 0.6;
+    background: rgba(0, 30, 20, 0.6);
 }

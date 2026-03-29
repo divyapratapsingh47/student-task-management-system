@@ -1,137 +1,104 @@
+const taskInput = document.getElementById("taskInput");
+const priority = document.getElementById("priority");
+const taskList = document.getElementById("taskList");
+const count = document.getElementById("count");
+const deadlineInput = document.getElementById("deadline");
+
 let tasks = [];
 
+/* DARK MODE FIX */
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
+    const btn = document.getElementById("modeToggle");
 
-    const btn = document.getElementById("modeBtn");
-
-    // ⭐ CHANGE: icon switch
     if (document.body.classList.contains("dark")) {
-        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
+        btn.innerText = "☀ Light Mode";
     } else {
-        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
+        btn.innerText = "🌙 Dark Mode";
     }
 }
 
-function openDate() {
-    const input = document.getElementById("dateInput");
-
-    if (input.showPicker) {
-        input.showPicker();
-    } else {
-        input.focus();
-        input.click();
-    }
+/* CALENDAR FIX */
+function openCalendar(e) {
+    deadlineInput.showPicker();
 }
 
+/* ADD TASK FIX */
 function addTask() {
-    const text = document.getElementById("taskInput").value;
-    const priority = document.getElementById("priority").value;
-    const date = document.getElementById("dateInput").value;
+    const text = taskInput.value.trim();
+    if (!text) return;
 
-    if (text === "") return;
+    tasks.push({
+        text,
+        priority: priority.value,
+        deadline: deadlineInput.value,
+        completed: false
+    });
 
-    tasks.push({ text, priority, date, completed: false });
     renderTasks();
 
-    document.getElementById("taskInput").value = "";
+    taskInput.value = "";
+    deadlineInput.value = "";
 }
 
-function renderTasks() {
-    const list = document.getElementById("taskList");
-    list.innerHTML = "";
+/* RENDER */
+function renderTasks(filter = "all") {
+    taskList.innerHTML = "";
 
-    tasks.forEach((task, index) => {
+    let filtered = tasks.filter(t => {
+        if (filter === "completed") return t.completed;
+        if (filter === "pending") return !t.completed;
+        return true;
+    });
 
-        let li = document.createElement("li");
-        li.classList.add(task.priority);
+    filtered.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.className = task.priority;
 
-        if (task.completed) li.classList.add("completed");
-
-        let dateText = "";
-        if (task.date) {
-            let d = new Date(task.date);
-            let day = d.toLocaleDateString('en-US', { weekday: 'short' });
-            dateText = `<br><small>${task.date} (${day})</small>`;
-        }
+        const date = task.deadline
+            ? `<small>${new Date(task.deadline).toDateString()}</small>`
+            : "";
 
         li.innerHTML = `
-            <span>${task.text}${dateText}</span>
+            <div>${task.text}<br>${date}</div>
 
             <div class="actions">
-
-                <div class="tooltip">
-                    <button class="icon-btn done" onclick="toggleTask(${index})">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-                    <span class="tooltip-text">Done</span>
-                </div>
-
-                <div class="tooltip">
-                    <button class="icon-btn edit" onclick="editTask(${index})">
-                        <i class="fa-solid fa-pen pencil"></i>
-                    </button>
-                    <span class="tooltip-text">Edit</span>
-                </div>
-
-                <div class="tooltip">
-                    <button class="icon-btn delete" onclick="deleteTask(${index})">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                    <span class="tooltip-text">Delete</span>
-                </div>
-
+                <button class="done" onclick="toggleComplete(${index})">✔</button>
+                <button class="edit" onclick="editTask(${index})"><span>✏</span></button>
+                <button class="delete" onclick="deleteTask(${index})">🗑</button>
             </div>
         `;
 
-        list.appendChild(li);
+        taskList.appendChild(li);
     });
 
-    updateCount();
+    count.innerText = tasks.length;
 }
 
-function toggleTask(i) {
-    tasks[i].completed = !tasks[i].completed;
+/* DONE FIX */
+function toggleComplete(index) {
+    tasks[index].completed = !tasks[index].completed;
     renderTasks();
 }
 
-function editTask(i) {
-    let newText = prompt("Edit task:", tasks[i].text);
+function editTask(index) {
+    const newText = prompt("Edit:", tasks[index].text);
     if (newText) {
-        tasks[i].text = newText;
+        tasks[index].text = newText;
         renderTasks();
     }
 }
 
-function deleteTask(i) {
-    tasks.splice(i, 1);
+function deleteTask(index) {
+    tasks.splice(index, 1);
     renderTasks();
-}
-
-function clearAllTasks() {
-    if (confirm("Delete all tasks?")) {
-        tasks = [];
-        renderTasks();
-    }
 }
 
 function filterTasks(type) {
-    const items = document.querySelectorAll("#taskList li");
-
-    items.forEach((item, index) => {
-        let task = tasks[index];
-
-        if (type === "all") {
-            item.style.display = "flex";
-        } else if (type === "completed") {
-            item.style.display = task.completed ? "flex" : "none";
-        } else {
-            item.style.display = !task.completed ? "flex" : "none";
-        }
-    });
+    renderTasks(type);
 }
 
-function updateCount() {
-    document.getElementById("taskCount").innerText =
-        "Total Tasks: " + tasks.length;
+function clearAll() {
+    tasks = [];
+    renderTasks();
 }
