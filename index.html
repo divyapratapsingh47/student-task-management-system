@@ -12,11 +12,12 @@
 <div class="container">
     <h1>🚀 Student Task Manager</h1>
 
-    <!-- Dark Mode -->
+    <!-- 🔧 CHANGE: Toggle button centered -->
     <button id="modeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-    <!-- Input Section -->
+    <!-- 🔧 CHANGE: CLEAN INPUT STRUCTURE -->
     <div class="input-section">
+
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
         <select id="priority">
@@ -25,16 +26,18 @@
             <option value="low">Low</option>
         </select>
 
-        <!-- Calendar -->
-        <input type="date" id="deadline" style="display:none;">
-        <button onclick="openCalendar()" class="calendar-btn">📅</button>
+        <!-- 🔧 CHANGE: ICON BUTTON (NOT INPUT BOX) -->
+        <button onclick="openCalendar()" class="calendar-btn" title="Select Deadline">📅</button>
 
         <button onclick="addTask()" class="add-btn">Add</button>
+
     </div>
+
+    <!-- 🔧 CHANGE: Hidden date OUTSIDE layout -->
+    <input type="date" id="deadline" style="display:none;">
 
     <p id="taskCount">Total Tasks: 0</p>
 
-    <!-- Filters -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>
@@ -43,12 +46,11 @@
 
     <button onclick="clearAllTasks()" class="clear-btn">🗑 Clear All</button>
 
-    <!-- Task List -->
     <ul id="taskList"></ul>
 
 </div>
 
-<!-- ⚠️ VERY IMPORTANT -->
+<!-- 🔥 VERY IMPORTANT FIX -->
 <script src="script.js"></script>
 
 </body>

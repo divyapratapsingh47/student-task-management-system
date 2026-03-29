@@ -27,7 +27,7 @@ function addTask() {
         <span>${text}${dateText}</span>
         <div class="actions">
             <button onclick="toggleComplete(this)">✔</button>
-            <button onclick="editTask(this)">✏</button>
+            <button class="edit" onclick="editTask(this)">✏</button>
             <button onclick="deleteTask(this)">🗑</button>
         </div>
     `;
@@ -57,8 +57,7 @@ function editTask(btn) {
 }
 
 function updateCount() {
-    const count = document.querySelectorAll("#taskList li").length;
-    taskCount.innerText = "Total Tasks: " + count;
+    taskCount.innerText = "Total Tasks: " + document.querySelectorAll("#taskList li").length;
 }
 
 function clearAllTasks() {
@@ -70,27 +69,24 @@ function filterTasks(type) {
     const tasks = document.querySelectorAll("#taskList li");
 
     tasks.forEach(task => {
-        if (type === "all") {
-            task.style.display = "flex";
-        } else if (type === "completed") {
+        if (type === "all") task.style.display = "flex";
+        else if (type === "completed")
             task.style.display = task.classList.contains("completed") ? "flex" : "none";
-        } else {
+        else
             task.style.display = !task.classList.contains("completed") ? "flex" : "none";
-        }
     });
+}
+
+/* 🔧 FIXED CALENDAR BUTTON */
+function openCalendar() {
+    deadlineInput.showPicker(); // modern browsers
 }
 
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 }
 
-function openCalendar() {
-    deadlineInput.click();
-}
-
-/* ENTER KEY SUPPORT */
+/* ENTER KEY */
 taskInput.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        addTask();
-    }
+    if (e.key === "Enter") addTask();
 });
