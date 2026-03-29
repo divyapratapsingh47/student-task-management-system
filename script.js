@@ -1,137 +1,96 @@
-let tasks = [];
-
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-
-    const btn = document.getElementById("modeBtn");
-
-    // ⭐ CHANGE: icon switch
-    if (document.body.classList.contains("dark")) {
-        btn.innerHTML = '<i class="fa-solid fa-sun"></i> Light Mode';
-    } else {
-        btn.innerHTML = '<i class="fa-solid fa-moon"></i> Dark Mode';
-    }
-}
-
-function openDate() {
-    const input = document.getElementById("dateInput");
-
-    if (input.showPicker) {
-        input.showPicker();
-    } else {
-        input.focus();
-        input.click();
-    }
-}
+const taskInput = document.getElementById("taskInput");
+const taskList = document.getElementById("taskList");
+const taskCount = document.getElementById("taskCount");
+const deadlineInput = document.getElementById("deadline");
 
 function addTask() {
-    const text = document.getElementById("taskInput").value;
+    const text = taskInput.value.trim();
     const priority = document.getElementById("priority").value;
-    const date = document.getElementById("dateInput").value;
+    const deadline = deadlineInput.value;
 
-    if (text === "") return;
+    if (text === "") {
+        alert("Enter a task!");
+        return;
+    }
 
-    tasks.push({ text, priority, date, completed: false });
-    renderTasks();
+    const li = document.createElement("li");
+    li.classList.add(priority);
 
-    document.getElementById("taskInput").value = "";
-}
+    let dateText = "";
+    if (deadline) {
+        const date = new Date(deadline);
+        const day = date.toLocaleDateString('en-US', { weekday: 'short' });
+        dateText = `<br><small>${deadline} (${day})</small>`;
+    }
 
-function renderTasks() {
-    const list = document.getElementById("taskList");
-    list.innerHTML = "";
+    li.innerHTML = `
+        <span>${text}${dateText}</span>
+        <div class="actions">
+            <button onclick="toggleComplete(this)">✔</button>
+            <button onclick="editTask(this)">✏</button>
+            <button onclick="deleteTask(this)">🗑</button>
+        </div>
+    `;
 
-    tasks.forEach((task, index) => {
+    taskList.appendChild(li);
 
-        let li = document.createElement("li");
-        li.classList.add(task.priority);
-
-        if (task.completed) li.classList.add("completed");
-
-        let dateText = "";
-        if (task.date) {
-            let d = new Date(task.date);
-            let day = d.toLocaleDateString('en-US', { weekday: 'short' });
-            dateText = `<br><small>${task.date} (${day})</small>`;
-        }
-
-        li.innerHTML = `
-            <span>${task.text}${dateText}</span>
-
-            <div class="actions">
-
-                <div class="tooltip">
-                    <button class="icon-btn done" onclick="toggleTask(${index})">
-                        <i class="fa-solid fa-check"></i>
-                    </button>
-                    <span class="tooltip-text">Done</span>
-                </div>
-
-                <div class="tooltip">
-                    <button class="icon-btn edit" onclick="editTask(${index})">
-                        <i class="fa-solid fa-pen pencil"></i>
-                    </button>
-                    <span class="tooltip-text">Edit</span>
-                </div>
-
-                <div class="tooltip">
-                    <button class="icon-btn delete" onclick="deleteTask(${index})">
-                        <i class="fa-solid fa-trash"></i>
-                    </button>
-                    <span class="tooltip-text">Delete</span>
-                </div>
-
-            </div>
-        `;
-
-        list.appendChild(li);
-    });
-
+    taskInput.value = "";
+    deadlineInput.value = "";
     updateCount();
 }
 
-function toggleTask(i) {
-    tasks[i].completed = !tasks[i].completed;
-    renderTasks();
+function deleteTask(btn) {
+    btn.parentElement.parentElement.remove();
+    updateCount();
 }
 
-function editTask(i) {
-    let newText = prompt("Edit task:", tasks[i].text);
-    if (newText) {
-        tasks[i].text = newText;
-        renderTasks();
+function toggleComplete(btn) {
+    btn.parentElement.parentElement.classList.toggle("completed");
+}
+
+function editTask(btn) {
+    const span = btn.parentElement.parentElement.querySelector("span");
+    const newText = prompt("Edit task:", span.innerText);
+    if (newText !== null) {
+        span.innerHTML = newText;
     }
 }
 
-function deleteTask(i) {
-    tasks.splice(i, 1);
-    renderTasks();
+function updateCount() {
+    const count = document.querySelectorAll("#taskList li").length;
+    taskCount.innerText = "Total Tasks: " + count;
 }
 
 function clearAllTasks() {
-    if (confirm("Delete all tasks?")) {
-        tasks = [];
-        renderTasks();
-    }
+    taskList.innerHTML = "";
+    updateCount();
 }
 
 function filterTasks(type) {
-    const items = document.querySelectorAll("#taskList li");
+    const tasks = document.querySelectorAll("#taskList li");
 
-    items.forEach((item, index) => {
-        let task = tasks[index];
-
+    tasks.forEach(task => {
         if (type === "all") {
-            item.style.display = "flex";
+            task.style.display = "flex";
         } else if (type === "completed") {
-            item.style.display = task.completed ? "flex" : "none";
+            task.style.display = task.classList.contains("completed") ? "flex" : "none";
         } else {
-            item.style.display = !task.completed ? "flex" : "none";
+            task.style.display = !task.classList.contains("completed") ? "flex" : "none";
         }
     });
 }
 
-function updateCount() {
-    document.getElementById("taskCount").innerText =
-        "Total Tasks: " + tasks.length;
+function toggleDarkMode() {
+    document.body.classList.toggle("dark");
 }
+
+function openCalendar() {
+    deadlineInput.click();
+}
+
+/* ENTER KEY SUPPORT */
+taskInput.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        addTask();
+    }
+});

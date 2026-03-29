@@ -4,62 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Task Manager</title>
-
-    <!-- ⭐ CHANGE: Premium Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <div class="container">
-
     <h1>🚀 Student Task Manager</h1>
 
-    <!-- ⭐ CHANGE: Icon instead of emoji -->
-    <button onclick="toggleDarkMode()" id="modeBtn">
-        <i class="fa-solid fa-moon"></i> Dark Mode
-    </button>
+    <!-- Dark Mode -->
+    <button id="modeToggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
 
-    <div class="input-row">
+    <!-- Input Section -->
+    <div class="input-section">
         <input type="text" id="taskInput" placeholder="Enter a task...">
 
         <select id="priority">
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
             <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
         </select>
 
-        <!-- ⭐ CHANGE: Calendar icon -->
-        <div class="tooltip">
-            <button class="icon-btn calendar-btn" onclick="openDate()">
-                <i class="fa-solid fa-calendar"></i>
-            </button>
-            <span class="tooltip-text">Select Deadline</span>
-        </div>
+        <!-- Calendar -->
+        <input type="date" id="deadline" style="display:none;">
+        <button onclick="openCalendar()" class="calendar-btn">📅</button>
 
-        <input type="date" id="dateInput">
-
-        <button class="add-btn" onclick="addTask()">Add</button>
+        <button onclick="addTask()" class="add-btn">Add</button>
     </div>
 
     <p id="taskCount">Total Tasks: 0</p>
 
+    <!-- Filters -->
     <div class="filters">
         <button onclick="filterTasks('all')">All</button>
         <button onclick="filterTasks('completed')">Completed</button>
         <button onclick="filterTasks('pending')">Pending</button>
     </div>
 
-    <button class="clear-btn" onclick="clearAllTasks()">
-        <i class="fa-solid fa-trash"></i> Clear All
-    </button>
+    <button onclick="clearAllTasks()" class="clear-btn">🗑 Clear All</button>
 
+    <!-- Task List -->
     <ul id="taskList"></ul>
 
 </div>
 
+<!-- ⚠️ VERY IMPORTANT -->
 <script src="script.js"></script>
+
 </body>
 </html>
