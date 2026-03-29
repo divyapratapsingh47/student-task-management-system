@@ -1,154 +1,151 @@
 body {
     margin: 0;
     font-family: Arial;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 
-    /* 🔥 LIGHT MODE (YOUR SCREENSHOT STYLE) */
-    background: linear-gradient(135deg, #cfd9ff, #e2ebff);
+    background: linear-gradient(135deg, #8ea2c9, #c7d3e3);
 }
 
-/* GLASS CARD */
+/* DARK MODE */
+.dark {
+    background: linear-gradient(135deg, #0f2027, #1c3b2f, #2e7d5a);
+    color: white;
+}
+
 .container {
-    background: rgba(255,255,255,0.25);
-    backdrop-filter: blur(25px);
-    padding: 30px;
-    border-radius: 20px;
-    width: 380px;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(20px);
+    padding: 25px;
+    border-radius: 16px;
+    width: 320px;
     text-align: center;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-/* INPUT */
+.dark .container {
+    background: rgba(0, 50, 40, 0.5);
+}
+
 .input-section {
     display: flex;
     gap: 8px;
-    margin-top: 10px;
-    align-items: center;
+    margin: 10px 0;
 }
 
-#taskInput {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
+input, select {
+    padding: 8px;
+    border-radius: 6px;
     border: none;
 }
 
-select {
-    padding: 10px;
-    border-radius: 10px;
+/* ADD BUTTON */
+#addTask {
+    background: #00bcd4;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
-/* CALENDAR */
-#calendarBtn {
+/* CALENDAR ICON */
+.icon-btn {
     background: black;
     color: white;
-    border-radius: 10px;
-    width: 40px;
-    height: 40px;
     border: none;
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
     cursor: pointer;
-}
-
-#deadline {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-}
-
-/* ADD */
-.add-btn {
-    background: #00c2ff;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-/* TOOLTIP */
-.tooltip {
     position: relative;
 }
 
-.tooltip-text {
-    visibility: hidden;
-    background: black;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
+/* TOOLTIP */
+.icon-btn::after {
+    content: attr(data-tooltip);
     position: absolute;
     bottom: 120%;
     left: 50%;
     transform: translateX(-50%);
-}
-
-.tooltip:hover .tooltip-text {
-    visibility: visible;
-}
-
-/* CLEAR */
-.clear-btn {
-    background: red;
+    background: black;
     color: white;
-    border: none;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+    opacity: 0;
+    pointer-events: none;
 }
 
-/* TASK */
+.icon-btn:hover::after {
+    opacity: 1;
+}
+
+/* HIDE DATE INPUT */
+#deadline {
+    position: absolute;
+    opacity: 0;
+}
+
+/* TASK LIST */
 li {
     list-style: none;
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 12px;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* PRIORITY */
-.high { background: #ffcccc; border-left: 6px solid red; }
-.medium { background: #fff3cd; border-left: 6px solid orange; }
-.low { background: #d4edda; border-left: 6px solid green; }
+/* PRIORITY COLORS */
+.low { background: #c8e6c9; }
+.medium { background: #ffe0b2; }
+.high { background: #ffcdd2; }
 
-/* ACTION BUTTONS (FIXED ALIGNMENT) */
+/* BUTTONS */
 .actions {
     display: flex;
     gap: 8px;
-    align-items: center;
 }
 
 .actions button {
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
     border-radius: 10px;
     border: none;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* COLORS */
-.done { background: #007bff; color: white; }
-.edit { background: #ff9800; color: white; }
-.delete { background: #f44336; color: white; }
-
-/* ✏️ ONLY ICON TILT */
-.edit span {
-    transform: rotate(-25deg);
-    display: inline-block;
-}
-
-/* 🌙 DARK MODE (PREMIUM GREENISH) */
-.dark {
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+/* PREMIUM COLORS */
+.done {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
     color: white;
 }
 
-.dark .container {
-    background: rgba(0, 40, 30, 0.6);
+.edit {
+    background: linear-gradient(135deg, #ff9800, #ffb74d);
+    color: white;
+}
+
+.delete {
+    background: linear-gradient(135deg, #ff3d3d, #ff6b6b);
+    color: white;
+}
+
+/* ONLY ICON ROTATES */
+.edit span {
+    display: inline-block;
+    transform: rotate(-25deg);
+}
+
+/* CLEAR BUTTON */
+#clearAll {
+    background: red;
+    color: white;
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 10px;
 }

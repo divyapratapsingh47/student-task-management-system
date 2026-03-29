@@ -1,112 +1,121 @@
 const taskInput = document.getElementById("taskInput");
-const priority = document.getElementById("priority");
+const addTaskBtn = document.getElementById("addTask");
 const taskList = document.getElementById("taskList");
-const count = document.getElementById("count");
-const deadlineInput = document.getElementById("deadline");
+const totalTasks = document.getElementById("totalTasks");
+const priority = document.getElementById("priority");
+const clearAll = document.getElementById("clearAll");
+const themeToggle = document.getElementById("themeToggle");
 const calendarBtn = document.getElementById("calendarBtn");
+const deadlineInput = document.getElementById("deadline");
 
 let tasks = [];
 
-/* 🌙 DARK MODE */
-function toggleDarkMode() {
-    document.body.classList.toggle("dark");
-    const btn = document.getElementById("modeToggle");
-
-    if (document.body.classList.contains("dark")) {
-        btn.innerText = "☀ Light Mode";
-    } else {
-        btn.innerText = "🌙 Dark Mode";
-    }
-}
-
-/* 📅 CALENDAR FIX (POSITIONED CORRECTLY) */
-calendarBtn.addEventListener("click", (e) => {
-    const rect = calendarBtn.getBoundingClientRect();
-
-    deadlineInput.style.left = rect.left + "px";
-    deadlineInput.style.top = rect.bottom + "px";
-
+/* CALENDAR FIX */
+calendarBtn.addEventListener("click", () => {
     deadlineInput.showPicker();
 });
 
 /* ADD TASK */
-function addTask() {
+addTaskBtn.addEventListener("click", () => {
     const text = taskInput.value.trim();
+    const pr = priority.value;
+    const date = deadlineInput.value;
+
     if (!text) return;
 
     tasks.push({
         text,
-        priority: priority.value,
-        deadline: deadlineInput.value,
+        pr,
+        date,
         completed: false
     });
 
-    renderTasks();
-
     taskInput.value = "";
     deadlineInput.value = "";
-}
+
+    renderTasks();
+});
 
 /* RENDER */
 function renderTasks(filter = "all") {
     taskList.innerHTML = "";
 
-    let filtered = tasks.filter(t => {
-        if (filter === "completed") return t.completed;
-        if (filter === "pending") return !t.completed;
-        return true;
-    });
+    let filtered = tasks;
+
+    if (filter === "completed") {
+        filtered = tasks.filter(t => t.completed);
+    } else if (filter === "pending") {
+        filtered = tasks.filter(t => !t.completed);
+    }
 
     filtered.forEach((task, index) => {
+
         const li = document.createElement("li");
-        li.className = task.priority;
+        li.className = task.pr;
 
-        const date = task.deadline
-            ? `<small>${new Date(task.deadline).toDateString()}</small>`
-            : "";
-
-        li.innerHTML = `
-            <div>
-                ${task.text}<br>${date}
-            </div>
-
-            <div class="actions">
-                <button class="done" onclick="toggleComplete(${index})">✔</button>
-                <button class="edit" onclick="editTask(${index})"><span>✏</span></button>
-                <button class="delete" onclick="deleteTask(${index})">🗑</button>
-            </div>
+        const text = document.createElement("div");
+        text.innerHTML = `
+            <strong>${task.text}</strong><br>
+            ${task.date ? new Date(task.date).toDateString() : ""}
         `;
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const doneBtn = document.createElement("button");
+        doneBtn.className = "done";
+        doneBtn.innerHTML = "✔";
+        doneBtn.onclick = () => {
+            task.completed = !task.completed;
+            renderTasks();
+        };
+
+        const editBtn = document.createElement("button");
+        editBtn.className = "edit";
+        editBtn.innerHTML = "<span>✏</span>";
+        editBtn.onclick = () => {
+            const newText = prompt("Edit task:", task.text);
+            if (newText) {
+                task.text = newText;
+                renderTasks();
+            }
+        };
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete";
+        deleteBtn.innerHTML = "🗑";
+        deleteBtn.onclick = () => {
+            tasks.splice(index, 1);
+            renderTasks();
+        };
+
+        actions.append(doneBtn, editBtn, deleteBtn);
+        li.append(text, actions);
 
         taskList.appendChild(li);
     });
 
-    count.innerText = tasks.length;
+    totalTasks.textContent = tasks.length;
 }
 
-/* DONE FIX */
-function toggleComplete(index) {
-    tasks[index].completed = !tasks[index].completed;
-    renderTasks();
-}
-
-function editTask(index) {
-    const newText = prompt("Edit task:", tasks[index].text);
-    if (newText) {
-        tasks[index].text = newText;
-        renderTasks();
-    }
-}
-
-function deleteTask(index) {
-    tasks.splice(index, 1);
-    renderTasks();
-}
-
+/* FILTER */
 function filterTasks(type) {
     renderTasks(type);
 }
 
-function clearAll() {
+/* CLEAR */
+clearAll.addEventListener("click", () => {
     tasks = [];
     renderTasks();
-}
+});
+
+/* THEME */
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+        themeToggle.innerText = "☀ Light Mode";
+    } else {
+        themeToggle.innerText = "🌙 Dark Mode";
+    }
+});
