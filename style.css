@@ -1,49 +1,68 @@
 body {
-    font-family: Arial;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, purple, blue);
+
+    background: linear-gradient(135deg, #4e54c8, #8f94fb);
 }
 
+/* 🌟 GLASS EFFECT */
 .container {
-    background: #eee;
-    padding: 20px;
-    border-radius: 15px;
-    width: 350px;
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 25px;
+    width: 360px;
     text-align: center;
+    color: white;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
 }
 
+/* TITLE */
+h1 {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+/* INPUT ROW */
 .input-row {
     display: flex;
     gap: 8px;
-    justify-content: center;
     align-items: center;
-    margin: 10px 0;
+    margin: 15px 0;
 }
 
 input, select {
-    padding: 6px;
-}
-
-button {
-    padding: 6px 10px;
-    cursor: pointer;
-}
-
-.add-btn {
-    white-space: nowrap;
-}
-
-.clear-btn {
-    background: red;
-    color: white;
-    border: none;
-    margin-top: 10px;
     padding: 8px;
-    border-radius: 6px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+/* BUTTONS */
+button {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* ADD BUTTON */
+.add-btn {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+}
+
+/* CLEAR BUTTON */
+.clear-btn {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+    padding: 8px;
+    margin-top: 10px;
 }
 
 /* TASK */
@@ -51,56 +70,70 @@ li {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px;
+
+    border-radius: 12px;
+    background: rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(10px);
+
+    transition: 0.2s;
+}
+
+/* HOVER TASK */
+li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 /* PRIORITY */
-.high { background: #f8c6c6; border-left: 5px solid red; }
-.medium { background: #f5e6b3; border-left: 5px solid orange; }
-.low { background: #cdeccd; border-left: 5px solid green; }
+.high { border-left: 5px solid #ff4b2b; }
+.medium { border-left: 5px solid #ffc107; }
+.low { border-left: 5px solid #00ff88; }
 
-/* ACTIONS */
+/* ACTION BUTTONS */
 .actions {
     display: flex;
     gap: 6px;
-    align-items: center;
 }
 
+/* ICON BUTTON */
 .icon-btn {
-    border: none;
     padding: 6px;
     border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-/* ⭐ CHANGE: ICON SIZE */
+/* COLORS */
+.done {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: white;
+}
+
+.edit {
+    background: linear-gradient(135deg, #ffb347, #ff9800);
+    color: white;
+}
+
+.delete {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);
+    color: white;
+}
+
+/* ICON STYLE */
 .icon-btn i {
     font-size: 14px;
 }
 
-/* ⭐ CHANGE: Tilt ONLY pencil */
+/* TILT PENCIL */
 .pencil {
     transform: rotate(-20deg);
 }
 
-/* ⭐ CHANGE: Hover animation */
+/* HOVER EFFECT */
 .icon-btn:hover {
-    transform: scale(1.1);
-    transition: 0.2s ease;
-}
-
-/* COLORS */
-.done { background: #0057ff; color: white; }
-.edit { background: #ff9800; color: white; }
-.delete { background: #ff2d2d; color: white; }
-
-.calendar-btn {
-    background: #444;
-    color: white;
+    transform: scale(1.15);
 }
 
 /* TOOLTIP */
@@ -110,7 +143,7 @@ li {
 
 .tooltip-text {
     position: absolute;
-    bottom: 120%;
+    bottom: 130%;
     left: 50%;
     transform: translateX(-50%);
     background: black;
@@ -133,15 +166,15 @@ li {
 
 /* DARK MODE */
 .dark {
-    background: #111;
-    color: white;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
 }
 
 .dark .container {
-    background: #222;
+    background: rgba(0,0,0,0.4);
 }
 
+/* COMPLETED */
 .completed span {
     text-decoration: line-through;
-    color: gray;
+    opacity: 0.6;
 }
