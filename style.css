@@ -28,24 +28,16 @@ body.dark .container {
   background: rgba(0,0,0,0.4);
 }
 
-/* 🔥 FIXED INPUT SECTION (NO STRETCH, CLEAN GAP) */
+/* INPUT SECTION FIX */
 .input-section {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-input {
-  width: 140px;
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-}
-
-select {
-  width: 80px;
+input, select {
   padding: 8px;
   border-radius: 8px;
   border: none;
@@ -59,14 +51,10 @@ select {
 
 /* BUTTONS */
 button {
-  padding: 6px 10px;
+  padding: 8px 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-}
-
-#calendarBtn {
-  padding: 6px 8px;
 }
 
 #addTask {
@@ -120,7 +108,7 @@ li {
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* 🔥 FINAL TOOLTIP FIX (NO OVERLAP, CONTROLLED SIZE) */
+/* TOOLTIP FIXED */
 button[data-tooltip] {
   position: relative;
 }
@@ -128,21 +116,18 @@ button[data-tooltip] {
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 120%;
+  bottom: 150%;
   left: 50%;
   transform: translateX(-50%);
   background: black;
   color: white;
-  padding: 4px 6px;
-  border-radius: 5px;
-  font-size: 10px;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 11px;
   opacity: 0;
   transition: 0.2s;
   white-space: nowrap;
   pointer-events: none;
-  z-index: 5;
-  max-width: 80px;
-  text-align: center;
 }
 
 button[data-tooltip]:hover::after {
