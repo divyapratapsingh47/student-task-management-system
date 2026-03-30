@@ -15,16 +15,16 @@
   <div class="input-section">
     <input type="text" id="taskInput" placeholder="Enter a task...">
 
-    <select id="priority">
+    <!-- FIX: added title -->
+    <select id="priority" title="Select Priority">
       <option value="low">Low</option>
       <option value="medium">Medium</option>
       <option value="high">High</option>
     </select>
 
-    <!-- Date input (hidden visually, not disabled) -->
     <input type="date" id="deadline">
 
-    <!-- Calendar -->
+    <!-- Tooltip only here -->
     <button id="calendarBtn" data-tooltip="Select Deadline">📅</button>
 
     <button id="addTask">Add</button>

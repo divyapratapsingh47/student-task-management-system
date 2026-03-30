@@ -28,9 +28,10 @@ body.dark .container {
   background: rgba(0,0,0,0.4);
 }
 
+/* INPUT SECTION FIX */
 .input-section {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
@@ -42,7 +43,7 @@ input, select {
   border: none;
 }
 
-/* DATE INPUT FIX (IMPORTANT) */
+/* DATE INPUT HIDDEN */
 #deadline {
   position: absolute;
   opacity: 0;
@@ -107,7 +108,7 @@ li {
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* TOOLTIP FIX */
+/* TOOLTIP FIXED */
 button[data-tooltip] {
   position: relative;
 }
@@ -115,7 +116,7 @@ button[data-tooltip] {
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 120%;
+  bottom: 150%;
   left: 50%;
   transform: translateX(-50%);
   background: black;
@@ -126,6 +127,7 @@ button[data-tooltip]::after {
   opacity: 0;
   transition: 0.2s;
   white-space: nowrap;
+  pointer-events: none;
 }
 
 button[data-tooltip]:hover::after {
