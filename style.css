@@ -28,19 +28,26 @@ body.dark .container {
   background: rgba(0,0,0,0.4);
 }
 
-/* INPUT SECTION FIX */
+/* ✅ CLEAN INPUT SECTION */
 .input-section {
   display: flex;
-  gap: 12px;
+  gap: 8px; /* tighter spacing */
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
+/* ✅ FIX STRETCH ISSUE */
 input, select {
   padding: 8px;
   border-radius: 8px;
   border: none;
+  width: auto;
+}
+
+/* Keep input slightly bigger */
+#taskInput {
+  min-width: 140px;
 }
 
 /* DATE INPUT HIDDEN */
@@ -84,9 +91,9 @@ li {
 }
 
 /* PRIORITY COLORS */
-.low { background: #f4e1a1; }
-.medium { background: #a1c4a1; }
-.high { background: #e6a1a1; }
+.low { background: #a1c4a1; }    /* GREEN */
+.medium { background: #f4e1a1; } /* YELLOW */
+.high { background: #e6a1a1; }   /* RED stays same */
 
 /* ACTION BUTTONS */
 .actions {
@@ -108,7 +115,7 @@ li {
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* TOOLTIP FIXED */
+/* ✅ FINAL TOOLTIP FIX (CLEAN + NO OVERLAP) */
 button[data-tooltip] {
   position: relative;
 }
@@ -116,18 +123,21 @@ button[data-tooltip] {
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 150%;
+  bottom: 120%; /* closer to button */
   left: 50%;
   transform: translateX(-50%);
   background: black;
   color: white;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 11px;
+  padding: 4px 6px; /* smaller */
+  border-radius: 5px;
+  font-size: 10px;
   opacity: 0;
   transition: 0.2s;
   white-space: nowrap;
   pointer-events: none;
+  z-index: 5;
+  max-width: 80px;
+  text-align: center;
 }
 
 button[data-tooltip]:hover::after {
