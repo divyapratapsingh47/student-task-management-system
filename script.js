@@ -10,12 +10,12 @@ const deadlineInput = document.getElementById("deadline");
 
 let tasks = [];
 
-/* ✅ FINAL CALENDAR FIX */
+/* ✅ CALENDAR */
 calendarBtn.addEventListener("click", () => {
   if (deadlineInput.showPicker) {
-    deadlineInput.showPicker(); // modern browsers
+    deadlineInput.showPicker();
   } else {
-    deadlineInput.focus(); // fallback
+    deadlineInput.focus();
   }
 });
 
@@ -69,12 +69,29 @@ function renderTasks(filter = "all") {
     const li = document.createElement("li");
     li.className = task.priority;
 
+    /* ✅ OVERDUE HIGHLIGHT (SAFE) */
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const taskDate = new Date(task.date);
+
+    if (task.date && taskDate < today && !task.completed) {
+      li.style.border = "2px solid red";
+    }
+
+    /* TEXT */
     const text = document.createElement("div");
-    text.innerHTML = `<strong>${task.text}</strong><br>${formatDate(task.date)}`;
+    text.innerHTML = `
+      <strong style="${task.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
+        ${task.text}
+      </strong><br>
+      ${formatDate(task.date)}
+    `;
 
     const actions = document.createElement("div");
     actions.className = "actions";
 
+    /* DONE BUTTON */
     const doneBtn = document.createElement("button");
     doneBtn.className = "done";
     doneBtn.innerHTML = "✔";
@@ -86,6 +103,7 @@ function renderTasks(filter = "all") {
       renderTasks(filter);
     };
 
+    /* EDIT BUTTON */
     const editBtn = document.createElement("button");
     editBtn.className = "edit";
     editBtn.innerHTML = "✏";
@@ -100,6 +118,7 @@ function renderTasks(filter = "all") {
       }
     };
 
+    /* DELETE BUTTON */
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete";
     deleteBtn.innerHTML = "🗑";
