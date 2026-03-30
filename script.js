@@ -69,17 +69,6 @@ function renderTasks(filter = "all") {
     const li = document.createElement("li");
     li.className = task.priority;
 
-    /* OVERDUE HIGHLIGHT */
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    const taskDate = new Date(task.date);
-
-    if (task.date && taskDate < today && !task.completed) {
-      li.style.border = "2px solid red";
-    }
-
-    /* TEXT (FIXED STRIKE-THROUGH) */
     const text = document.createElement("div");
 
     if (task.completed) {
@@ -99,11 +88,15 @@ function renderTasks(filter = "all") {
     const actions = document.createElement("div");
     actions.className = "actions";
 
-    /* DONE BUTTON */
+    /* ✅ DONE BUTTON (MODERN CHECK ICON) */
     const doneBtn = document.createElement("button");
     doneBtn.className = "done";
-    doneBtn.innerHTML = "✔";
     doneBtn.setAttribute("data-tooltip", "Done");
+    doneBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    `;
     doneBtn.onclick = () => {
       tasks = tasks.map(t =>
         t.id === task.id ? { ...t, completed: !t.completed } : t
@@ -111,11 +104,15 @@ function renderTasks(filter = "all") {
       renderTasks(filter);
     };
 
-    /* EDIT BUTTON */
+    /* ✏ EDIT BUTTON (MODERN PENCIL ICON) */
     const editBtn = document.createElement("button");
     editBtn.className = "edit";
-    editBtn.innerHTML = "✏";
     editBtn.setAttribute("data-tooltip", "Edit");
+    editBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
+        <path d="M3 17.25V21h3.75L17.8 9.94l-3.75-3.75L3 17.25zM20.7 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+      </svg>
+    `;
     editBtn.onclick = () => {
       const newText = prompt("Edit task:", task.text);
       if (newText) {
@@ -126,11 +123,15 @@ function renderTasks(filter = "all") {
       }
     };
 
-    /* DELETE BUTTON */
+    /* 🗑 DELETE BUTTON (MODERN DUSTBIN ICON) */
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete";
-    deleteBtn.innerHTML = "🗑";
     deleteBtn.setAttribute("data-tooltip", "Delete");
+    deleteBtn.innerHTML = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" viewBox="0 0 24 24">
+        <path d="M3 6h18M9 6V4h6v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/>
+      </svg>
+    `;
     deleteBtn.onclick = () => {
       tasks = tasks.filter(t => t.id !== task.id);
       renderTasks(filter);

@@ -110,6 +110,10 @@ li {
   justify-content: center;
   position: relative;
 }
+.actions button svg {
+  width: 16px;
+  height: 16px;
+}
 
 .done { background: #2196f3; color: white; }
 .edit { background: orange; color: white; }
