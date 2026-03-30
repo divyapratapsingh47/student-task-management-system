@@ -10,7 +10,7 @@ const deadlineInput = document.getElementById("deadline");
 
 let tasks = [];
 
-/* ✅ CALENDAR */
+/* CALENDAR */
 calendarBtn.addEventListener("click", () => {
   if (deadlineInput.showPicker) {
     deadlineInput.showPicker();
@@ -69,7 +69,7 @@ function renderTasks(filter = "all") {
     const li = document.createElement("li");
     li.className = task.priority;
 
-    /* ✅ OVERDUE HIGHLIGHT (SAFE) */
+    /* OVERDUE HIGHLIGHT */
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -79,14 +79,22 @@ function renderTasks(filter = "all") {
       li.style.border = "2px solid red";
     }
 
-    /* TEXT */
+    /* TEXT (FIXED STRIKE-THROUGH) */
     const text = document.createElement("div");
-    text.innerHTML = `
-      <strong style="${task.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">
-        ${task.text}
-      </strong><br>
-      ${formatDate(task.date)}
-    `;
+
+    if (task.completed) {
+      text.innerHTML = `
+        <strong style="text-decoration: line-through; opacity: 0.6;">
+          ${task.text}
+        </strong><br>
+        ${formatDate(task.date)}
+      `;
+    } else {
+      text.innerHTML = `
+        <strong>${task.text}</strong><br>
+        ${formatDate(task.date)}
+      `;
+    }
 
     const actions = document.createElement("div");
     actions.className = "actions";
