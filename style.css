@@ -28,10 +28,10 @@ body.dark .container {
   background: rgba(0,0,0,0.4);
 }
 
-/* INPUT SECTION FIX */
+/* FIXED INPUT SPACING */
 .input-section {
   display: flex;
-  gap: 12px;
+  gap: 15px;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
@@ -108,7 +108,7 @@ li {
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* TOOLTIP FIXED */
+/* 🔥 FINAL TOOLTIP FIX (NO OVERLAP) */
 button[data-tooltip] {
   position: relative;
 }
@@ -116,18 +116,19 @@ button[data-tooltip] {
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 150%;
+  bottom: 130%;
   left: 50%;
   transform: translateX(-50%);
   background: black;
   color: white;
-  padding: 5px 8px;
-  border-radius: 6px;
-  font-size: 11px;
+  padding: 4px 6px;
+  border-radius: 5px;
+  font-size: 10px;
   opacity: 0;
   transition: 0.2s;
   white-space: nowrap;
   pointer-events: none;
+  z-index: 10;
 }
 
 button[data-tooltip]:hover::after {
