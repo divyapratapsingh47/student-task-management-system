@@ -21,23 +21,23 @@ body.dark {
   border-radius: 20px;
   width: 350px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2),
+              0 0 20px rgba(122,130,255,0.4);
 }
 
 body.dark .container {
   background: rgba(0,0,0,0.4);
 }
 
-/* ✅ CLEAN INPUT SECTION */
+/* INPUT SECTION */
 .input-section {
   display: flex;
-  gap: 8px; /* tighter spacing */
+  gap: 8px;
   justify-content: center;
   align-items: center;
   margin: 10px 0;
 }
 
-/* ✅ FIX STRETCH ISSUE */
 input, select {
   padding: 8px;
   border-radius: 8px;
@@ -45,7 +45,6 @@ input, select {
   width: auto;
 }
 
-/* Keep input slightly bigger */
 #taskInput {
   min-width: 140px;
 }
@@ -62,13 +61,21 @@ button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+  transition: 0.2s;
 }
 
+/* 🔥 HOVER EFFECT FOR ALL BUTTONS */
+button:hover {
+  transform: scale(1.05);
+}
+
+/* ADD BUTTON */
 #addTask {
   background: #00bcd4;
   color: white;
 }
 
+/* CLEAR BUTTON */
 #clearAll {
   background: red;
   color: white;
@@ -88,12 +95,19 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.2s;
+}
+
+/* 🔥 HOVER EFFECT FOR TASK CARD */
+li:hover {
+  transform: scale(1.02);
 }
 
 /* PRIORITY COLORS */
-.low { background: #a1c4a1; }    /* GREEN */
-.medium { background: #f4e1a1; } /* YELLOW */
-.high { background: #e6a1a1; }   /* RED stays same */
+.low { background: #a1c4a1; }
+.medium { background: #f4e1a1; }
+.high { background: #e6a1a1; }
 
 /* ACTION BUTTONS */
 .actions {
@@ -110,16 +124,25 @@ li {
   justify-content: center;
   position: relative;
 }
+
+/* ICON FIX */
 .actions button svg {
   width: 16px;
   height: 16px;
+  pointer-events: none;
 }
 
+/* BUTTON COLORS */
 .done { background: #2196f3; color: white; }
 .edit { background: orange; color: white; }
 .delete { background: red; color: white; }
 
-/* ✅ FINAL TOOLTIP FIX (CLEAN + NO OVERLAP) */
+/* 🔥 HOVER COLORS (EXTRA POLISH) */
+.done:hover { background: #1976d2; }
+.edit:hover { background: #cc8400; }
+.delete:hover { background: #c62828; }
+
+/* TOOLTIP */
 button[data-tooltip] {
   position: relative;
 }
@@ -127,12 +150,12 @@ button[data-tooltip] {
 button[data-tooltip]::after {
   content: attr(data-tooltip);
   position: absolute;
-  bottom: 120%; /* closer to button */
+  bottom: 120%;
   left: 50%;
   transform: translateX(-50%);
   background: black;
   color: white;
-  padding: 4px 6px; /* smaller */
+  padding: 4px 6px;
   border-radius: 5px;
   font-size: 10px;
   opacity: 0;
